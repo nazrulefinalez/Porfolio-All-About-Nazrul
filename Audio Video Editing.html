@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Video Editing - Nezofication Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5e6ff 0%, #e6f3ff 25%, #e6fff9 50%, #fff0f5 75%, #ffe6f0 100%);
+            min-height: 100vh;
+            color: #5a5a5a;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 2px solid rgba(197, 179, 255, 0.3);
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 20px;
+            animation: glassFloat 4s ease-in-out infinite;
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .nav-logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%,
+                rgba(255,255,255,0.85),
+                rgba(255,255,255,0.35) 30%,
+                rgba(120,115,245,0.25) 55%,
+                rgba(79,172,254,0.2) 75%,
+                rgba(255,255,255,0.15));
+            border: 1px solid rgba(255,255,255,0.45);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset -6px -6px 12px rgba(255,255,255,0.35),
+                inset 6px 6px 12px rgba(0,0,0,0.12),
+                0 10px 20px rgba(120,115,245,0.25);
+            animation: glassMorph 6s ease-in-out infinite;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.6),
+                rgba(120,115,245,0.4),
+                transparent 70%);
+            filter: blur(12px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .nav-logo-inner::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: linear-gradient(120deg,
+                transparent 30%,
+                rgba(255,255,255,0.35) 45%,
+                transparent 60%);
+            animation: glassShine 5s linear infinite;
+        }
+
+        .nav-logo-inner::after {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 15%;
+            width: 30%;
+            height: 30%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.9),
+                transparent 70%);
+            border-radius: 50%;
+            filter: blur(6px);
+        }
+
+        .nav-logo-inner img {
+            width: 45px;
+            height: 23px;
+            z-index: 2;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+        }
+
+        @keyframes glassFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 50%; }
+            50% { border-radius: 47% 53% 52% 48% / 50% 48% 52% 50%; }
+
+        }
+
+        @keyframes glassShine {
+            0% { transform: translateX(-40%) rotate(0deg); }
+            100% { transform: translateX(40%) rotate(0deg); }
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            border-radius: 50px;
+            color: #5a5a5a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 120px 40px 40px;
+        }
+
+        /* Header Section */
+        .header {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(197, 179, 255, 0.3);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            color: #5a5a5a;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 25%, #b3d9ff 50%, #b3ffd9 75%, #ffcce6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .header p {
+            color: #6a6a6a;
+            font-size: 1.2rem;
+        }
+
+        /* Content Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(197, 179, 255, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 50%, #b3d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(197, 179, 255, 0.3);
+        }
+
+        /* Campaign Logo Section */
+        .campaign-logo {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.5) 0%,
+                rgba(255, 255, 255, 0.3) 100%);
+            border-radius: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .campaign-logo img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(120, 115, 245, 0.3));
+        }
+
+        /* Media Grid */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .media-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 35px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                inset 0 0 40px rgba(255, 255, 255, 0.5),
+                0 10px 40px rgba(120, 115, 245, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .media-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 35px;
+            background: linear-gradient(45deg, 
+                #f093fb, #f5576c, #4facfe, #00f2fe);
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .media-card:hover::before {
+            opacity: 0.7;
+        }
+
+        .media-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                inset 0 0 60px rgba(255, 255, 255, 0.7),
+                0 20px 60px rgba(120, 115, 245, 0.5);
+        }
+
+        .media-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* Image Wrapper */
+        .media-image-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 30px 30px 0 0;
+            background: #f5f5f5;
+        }
+
+        .media-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .media-card:hover .media-image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        /* Video Wrapper */
+        .media-video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 30px 30px 0 0;
+            background: #000;
+        }
+
+        .media-video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .media-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .media-info h3 {
+            color: #5a5a5a;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .media-info p {
+            color: #6a6a6a;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .media-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 3px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        .video-badge {
+            background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+            box-shadow: 0 3px 15px rgba(120, 115, 245, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 30px rgba(255, 179, 217, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 179, 217, 0.6);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 100px 20px 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .campaign-logo img {
+                max-width: 250px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Fixed, appears after scrolling) -->
+    <div class="nav-container" id="navbar">
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='homepage.html#hasil';">
+    TENTANG
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='pencapaian.html';">PENCAPAIAN</button>
+        
+        <a href="homepage.html" class="nav-logo">
+    <div class="nav-logo-inner">
+        <img src="logoremake.png" alt="Logo">
+    </div>
+</a>
+
+        
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='portfolioo.html';">
+    KARYA KREATIF
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='contact.html';">HUBUNGI</button>
+									
+    </div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="portfolioo.html" class="back-btn">
+                ← KEMBALI
+            </a>
+            <h1>🎬 Audio Video Editing</h1>
+            <p>Projek suntingan video profesional serta produksi audio.</p>
+        </div>
+
+        <!-- The 5 Minutes Calls Campaign Section -->
+        <div class="section">
+            <h2 class="section-title">📞 The 5 Minutes Calls Campaign</h2>
+            
+            <!-- Campaign Logo -->
+            <div class="campaign-logo">
+                <img src="image/portfolio/Untitled design (19).png" alt="The 5 Minutes Calls Campaign Logo">
+            </div>
+
+            <div class="media-grid">
+                <!-- Campaign Image 1 -->
+                <div class="media-card">
+                    <a href="https://drive.google.com/file/d/1qoo-XJmxzt6WjxmdQDQtFa0mJ0V5Kmxo/view?usp=drive_link" target="_blank" class="media-link">
+                        <div class="media-image-wrapper">
+                            <img src="image/portfolio/Screenshot 2025-12-27 220415.png" alt="Campaign Material 1">
+                        </div>
+                        <div class="media-info">
+                            <h3>Storyline Dan Storyboard</h3>
+                            <p>Pembangunan Pengiklanan Kempen</p>
+                            <span class="media-badge">Google Drive</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Campaign Image 2 -->
+
+                <div class="media-card">
+                    <a href="https://drive.google.com/file/d/1RbLHtzsvG27Nf5sXy2URNXjQqQr1cWeC/view?usp=drive_link" target="_blank" class="media-link">
+                        <div class="media-image-wrapper">
+                            <img src="image/portfolio/Screenshot 2025-12-27 221229.png" alt="Campaign Material 2">
+                        </div>
+                        <div class="media-info">
+                            <h3>Surat Kebenaran Produksi</h3>
+                            <p>Kebenaran bagi melepasi penyuntingan video berlangsung</p>
+                            <span class="media-badge">Google Drive</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+       <!-- Campaign Video Section -->
+        <div class="section">
+            <h2 class="section-title">📹 Pengiklanan Kempen</h2>
+            <div class="media-grid">
+                <div class="media-card">
+                    <div class="media-video-wrapper">
+                        <a href="https://drive.google.com/file/d/18mbudzQNHtOi_p8JxnRUxrHZQFHSosKP/view?usp=drive_link" target="_blank">
+                            <video 
+                                autoplay 
+                                loop 
+                                muted 
+                                playsinline>
+                                <source src="video/lv_0_20251110160546.mp4" type="video/mp4">
+                                Browser anda tidak support video.
+                            </video>
+                        </a>
+                    </div>
+                    <div class="media-info">
+                        <h3>The 5 Minutes Calls Campaign</h3>
+                        <p>Iklan video untuk kempen komersial.</p>
+                        <span class="media-badge">🎬 Tekan untuk tontonan penuh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lypsinc Video Section -->
+        <div class="section">
+            <h2 class="section-title">🎤 Task Lypsinc </h2>
+            <div class="media-grid">
+                <div class="media-card">
+                    <div class="media-video-wrapper">
+                        <a href="https://drive.google.com/file/d/1BtcAF812RlXo799kMBIr_hkIINg_57k6/view?usp=sharing" target="_blank">
+                            <video 
+                                autoplay 
+                                loop 
+                                muted 
+                                playsinline>
+                                <source src="video/audio lypsinc, ambience dll.mp4" type="video/mp4">
+                                Browser anda tidak support video.
+                            </video>
+                        </a>
+                    </div>
+                    <div class="media-info">
+                        <h3>Trolls Movies</h3>
+                        <p>Persembahan lip-sync kreatif dan suntingannya</p>
+                        <span class="media-badge">🎬 Tekan untuk tontonan penuh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ensure all videos are muted and autoplay
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.muted = true;
+                video.volume = 0;
+                // Try to play the video
+                video.play().catch(err => {
+                    console.log('Autoplay prevented:', err);
+                });
+            });
+        });
+
+        // Keep videos muted on interaction
+        document.querySelectorAll('.media-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const video = this.querySelector('video');
+                if (video) {
+                    video.muted = true;
+                    video.volume = 0;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencapaian - Nezofication</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5e6ff 0%, #e6f3ff 25%, #e6fff9 50%, #fff0f5 75%, #ffe6f0 100%);
+            min-height: 100vh;
+            color: #5a5a5a;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 2px solid rgba(197, 179, 255, 0.3);
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 20px;
+            animation: glassFloat 4s ease-in-out infinite;
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .nav-logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%,
+                rgba(255,255,255,0.85),
+                rgba(255,255,255,0.35) 30%,
+                rgba(120,115,245,0.25) 55%,
+                rgba(79,172,254,0.2) 75%,
+                rgba(255,255,255,0.15)
+            );
+            border: 1px solid rgba(255,255,255,0.45);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow:
+                inset -6px -6px 12px rgba(255,255,255,0.35),
+                inset 6px 6px 12px rgba(0,0,0,0.12),
+                0 10px 20px rgba(120,115,245,0.25);
+            animation: glassMorph 6s ease-in-out infinite;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.6),
+                rgba(120,115,245,0.4),
+                transparent 70%);
+            filter: blur(12px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .nav-logo-inner::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: linear-gradient(120deg,
+                transparent 30%,
+                rgba(255,255,255,0.35) 45%,
+                transparent 60%
+            );
+            animation: glassShine 5s linear infinite;
+        }
+
+        .nav-logo-inner::after {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 15%;
+            width: 30%;
+            height: 30%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.9),
+                transparent 70%);
+            border-radius: 50%;
+            filter: blur(6px);
+        }
+
+        .nav-logo-inner img {
+            width: 45px;
+            height: 23px;
+            z-index: 2;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+        }
+
+        @keyframes glassFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 50%; }
+            50% { border-radius: 47% 53% 52% 48% / 50% 48% 52% 50%; }
+        }
+
+        @keyframes glassShine {
+            0% { transform: translateX(-40%) rotate(0deg); }
+            100% { transform: translateX(40%) rotate(0deg); }
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            border-radius: 50px;
+            color: #5a5a5a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        /* Achievement Section */
+        .achievement-section {
+            min-height: 100vh;
+            padding: 120px 40px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .achievement-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .achievement-header h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 25%, #b3d9ff 50%, #b3ffd9 75%, #ffcce6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 179, 217, 0.3);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .achievement-header p {
+            font-size: 1.2rem;
+            color: #6a6a6a;
+        }
+
+        /* Folders Container */
+        .folders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out 0.3s;
+            animation-fill-mode: both;
+        }
+
+        /* Folder Card */
+        .folder-card {
+            height: 400px;
+            border-radius: 25px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .folder-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, 
+                #ff6ec4, #7873f5, #4facfe, #00f2fe, 
+                #43e97b, #38f9d7);
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
+        }
+
+        .folder-card:hover::before {
+            opacity: 1;
+            filter: blur(20px);
+        }
+
+        .folder-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.7) 100%
+            );
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                inset 0 0 40px rgba(255, 255, 255, 0.5),
+                0 10px 40px rgba(120, 115, 245, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .folder-inner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 45%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.1) 55%,
+                transparent 100%
+            );
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .folder-card:hover .folder-inner::before {
+            right: 150%;
+        }
+
+        .folder-card:hover .folder-inner {
+            transform: translateY(-10px);
+            box-shadow: 
+                inset 0 0 60px rgba(255, 255, 255, 0.7),
+                0 20px 60px rgba(120, 115, 245, 0.5);
+        }
+
+        .folder-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, 
+                rgba(255, 179, 217, 0.3) 0%,
+                rgba(197, 179, 255, 0.3) 100%
+            );
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 5px 20px rgba(197, 179, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .folder-card:hover .folder-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(197, 179, 255, 0.5);
+        }
+
+        .folder-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #5a5a5a;
+            text-align: center;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .folder-card:hover .folder-title {
+            color: #7873f5;
+        }
+
+        .folder-subtitle {
+            font-size: 1rem;
+            color: #8a8a8a;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .folder-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffb3d9, #c5b3ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(197, 179, 255, 0.4);
+        }
+
+        .folder-card:hover .folder-arrow {
+            transform: translateX(5px);
+            box-shadow: 0 5px 25px rgba(197, 179, 255, 0.6);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(255, 255, 255, 0.85) 100%
+            );
+            backdrop-filter: blur(30px);
+            border-radius: 30px;
+            padding: 0;
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            border: 3px solid rgba(197, 179, 255, 0.5);
+            box-shadow: 
+                0 20px 60px rgba(120, 115, 245, 0.4),
+                inset 0 0 40px rgba(255, 255, 255, 0.5);
+            animation: slideUp 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+		
+.modal-body {
+            padding: 30px 40px 40px 40px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: rgba(197, 179, 255, 0.2);
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #c5b3ff, #b3d9ff);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #b3a3ef, #a3c9ef);
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(197, 179, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #c5b3ff, #b3d9ff);
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffb3d9, #c5b3ff);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(197, 179, 255, 0.4);
+            z-index: 10;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 5px 25px rgba(197, 179, 255, 0.6);
+        }
+
+       .modal-header {
+            text-align: center;
+            padding: 40px 40px 20px 40px;
+            border-bottom: 2px solid rgba(197, 179, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+
+        .modal-header h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 50%, #b3d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .modal-header p {
+            font-size: 1rem;
+            color: #8a8a8a;
+        }
+
+        .achievement-list {
+            list-style: none;
+        }
+
+        .achievement-item {
+            background: linear-gradient(135deg, 
+                rgba(255, 179, 217, 0.1) 0%,
+                rgba(197, 179, 255, 0.1) 100%
+            );
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            border-left: 5px solid #c5b3ff;
+            transition: all 0.3s ease;
+            animation: fadeInLeft 0.5s ease;
+        }
+
+        .achievement-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(197, 179, 255, 0.3);
+            border-left-color: #ffb3d9;
+        }
+
+        .achievement-year {
+            font-size: 0.9rem;
+            color: #c5b3ff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .achievement-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #5a5a5a;
+            margin-bottom: 5px;
+        }
+
+        .achievement-desc {
+            font-size: 1rem;
+            color: #7a7a7a;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .achievement-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 30px rgba(255, 179, 217, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 179, 217, 0.6);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .achievement-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .folders-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .folder-card {
+                height: 350px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+                max-height: 90vh;
+            }
+
+            .modal-header h2 {
+                font-size: 2rem;
+            }
+
+            .achievement-title {
+                font-size: 1.1rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+
+            .achievement-item img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+ <!-- Navigation (Fixed, appears after scrolling) -->
+    <div class="nav-container" id="navbar">
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='homepage.html#hasil';">
+    TENTANG
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='pencapaian.html';">PENCAPAIAN</button>
+        
+        <a href="homepage.html" class="nav-logo">
+    <div class="nav-logo-inner">
+        <img src="logoremake.png" alt="Logo">
+    </div>
+</a>
+
+        
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='portfolioo.html';">
+    KARYA KREATIF
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='contact.html';">HUBUNGI</button>
+									
+    </div>
+
+    <!-- Achievement Section -->
+     <section class="achievement-section">
+        <div class="achievement-header">
+           <h1 style="font-size:350%;font-family:Roundy Rainbows;" class="intro-title">PENCAPAIAN</h1>
+            <p style="font-size:100%;font-family:Roundy Rainbows;">Koleksi Pencapaian dan Penghargaan</p>
+        </div>
+
+        <div class="folders-grid">
+            <!-- Folder 1: Sekolah Menengah -->
+            <div class="folder-card" onclick="openModal('sekolah')">
+                <div class="folder-inner">
+                    <div class="folder-icon">🎓</div>
+                    <h3 class="folder-title">Sekolah Menengah</h3>
+                    <p class="folder-subtitle">Pencapaian semasa di sekolah</p>
+                    <div class="folder-arrow">→</div>
+                </div>
+            </div>
+
+            <!-- Folder 2: Institusi Pengajian Tinggi -->
+            <div class="folder-card" onclick="openModal('institusi')">
+                <div class="folder-inner">
+                    <div class="folder-icon">🏆</div>
+                    <h3 class="folder-title">Institusi Pengajian Tinggi</h3>
+                    <p class="folder-subtitle">Pencapaian di universiti/kolej</p>
+                    <div class="folder-arrow">→</div>
+                </div>
+            </div>
+
+            <!-- Folder 3: Penglibatan Luar -->
+            <div class="folder-card" onclick="openModal('luar')">
+                <div class="folder-inner">
+                    <div class="folder-icon">🌟</div>
+                    <h3 class="folder-title">Penglibatan Luar</h3>
+                    <p class="folder-subtitle">Aktiviti dan pencapaian luar</p>
+                    <div class="folder-arrow">→</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Modal for Sekolah Menengah -->
+    <div id="modal-sekolah" class="modal" onclick="closeModalOutside(event, 'sekolah')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal('sekolah')">×</button>
+            <div class="modal-header">
+                <h2>Sekolah Menengah</h2>
+                <p>Pencapaian semasa di sekolah</p>
+            </div>
+            <div class="modal-body">
+                
+                <!-- Pencapaian Pendidikan -->
+                <div class="level-section">
+                    <div class="level-header">
+                        <h3 class="level-title">Pencapaian Pendidikan</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li class="achievement-item" style="display: flex; justify-content: space-between;">
+                            <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+                                <div class="achievement-year">2023</div>
+                                <div class="achievement-title">SIJIL PELAJARAN MALAYSIA</div>
+                                <div class="achievement-desc">Kementerian Pendidikan Malaysia</div>
+                            </div>
+                            <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+                                <img src="certif/kebangsaan/sspm.jpg" alt="Sijil SPM">
+                            </div>
+                        </li>
+						<li class="achievement-item" style="display: flex; justify-content: space-between;">
+                            <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+                                <div class="achievement-year">2023</div>
+                                <div class="achievement-title">SIJIL MATA PELAJARAN VOKASIONAL</div>
+                                <div class="achievement-desc">Kementerian Pendidikan Malaysia</div>
+                            </div>
+                            <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+                                <img src="certif/kebangsaan/ssmv.jpg" alt="Sijil Vokasional">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Peringkat Antarabangsa -->
+                <div class="level-section">
+                    <div class="level-header">
+                        <h3 class="level-title">Peringkat Antarabangsa</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li class="achievement-item" style="display: flex; justify-content: space-between;">
+                            <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+                                <div class="achievement-year">2021</div>
+                                <div class="achievement-title">PENGLIBATAN CEMERLANG DALAM UNSTOPPABLE WEBINAR PDPR : LESU VS RESILIEN</div>
+                                <div class="achievement-desc">PROGRAM YAYASAN AMIR</div>
+                            </div>
+                            <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+                                <img src="certif/antarabangsa/SPLVR.jpg" alt="Sijil Antarabangsa">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Peringkat Kebangsaan -->
+                <div class="level-section">
+                    <div class="level-header">
+                        <h3 class="level-title">Peringkat Kebangsaan</h3>
+                    </div>
+                    <ul class="achievement-list">
+    <li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PENYERTAAN PERTANDINGAN PERADUAN VIDEO KREATIF BIJAK TENAGA TNB X SINAR BESTARI</div>
+        <div class="achievement-desc">PROGRAM KEMPEN BIJAK TENAGA</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://vt.tiktok.com/ZSPq4pfRd/" target="_blank" style="display: block; text-decoration: none;">
+                <video 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline
+                    style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;"
+                    onloadedmetadata="this.currentTime = 32">
+                    <source src="video/bijak tenaga.mp4" type="video/mp4">
+                    Browser anda tidak support video.
+                </video>
+            </a>
+        </div>
+        <div class="achievement-image" style="width: 150px;">
+            <img src="certif/kebangsaan/bijak tenaga (video kreatif).jpg" alt="Sijil Bijak Tenaga" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</li>
+						 <li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">VIDEO KREATIF TERBAIK PERINGKAT KEBANGSAAN-TEMPAT KETIGA</div>
+        <div class="achievement-desc">PROGRAM SHELL SELAMAT SAMPAI</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://youtu.be/GVx_2aP8hQo?si=4xv4co25DsWcREG0" target="_blank" style="display: block; text-decoration: none;">
+                <video 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline
+                    style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;"
+                    onloadedmetadata="this.currentTime = 32">
+                    <source src="video/kjrshell.mp4" type="video/mp4">
+                    Browser anda tidak support video.
+                </video>
+            </a>
+        </div>
+        <div class="achievement-image" style="width: 150px;">
+            <img src="certif/kebangsaan/Video Creative Shell.jpg" alt="Sijil Shell" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</li>
+						<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">SENI KREATIF</div>
+        <div class="achievement-desc">PROGRAM SHELL SELAMAT SAMPAI </div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="certif/kebangsaan/senikreatif.jpg" alt="Seni Kreatif">
+    </div>
+</li>
+						<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PERTANDINGAN VIDEO SEKOLAH AMANAH</div>
+        <div class="achievement-desc">KEMENJADIAN MURID</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <a href="https://youtu.be/YpEkQMDCEMM?si=wAorZZixLZiZN7X9" target="_blank" style="display: block; text-decoration: none;">
+            <iframe 
+                width="150" 
+                height="84" 
+                src="https://www.youtube.com/embed/YpEkQMDCEMM?autoplay=1&mute=1&loop=1&controls=0&playlist=YpEkQMDCEMM" 
+                frameborder="0" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen
+                style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;">
+            </iframe>
+        </a>
+    </div>
+</li>
+	<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">VIDEO KREATIF ANAK BAIK LAGI CERDIK</div>
+        <div class="achievement-desc">ANJURAN BAHAGIAN SUMBER DAN TEKNOLOGI PENDIDIKAN BERSAMA SEKTOR SUMBER DAN TEKNOLOGI PENDIDIKAN JPN PERLIS</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://youtu.be/6Yuby9Lt11A?si=eV-IVNmAdn8Dsr7v" target="_blank" style="display: block; text-decoration: none;">
+                <iframe 
+                    width="150" 
+                    height="84" 
+                    src="https://www.youtube.com/embed/6Yuby9Lt11A?autoplay=1&mute=1&loop=1&controls=0&playlist=6Yuby9Lt11A" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen
+                    style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;">
+                </iframe>
+            </a>
+        </div>
+        <div class="achievement-image" style="width: 150px;">
+            <img src="certif/kebangsaan/Anak baik lagi cerdik vk.png" alt="test" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">JUNIOR COMPETENCY SCORE</div>
+        <div class="achievement-desc">ANJURAN KEMENTERIAN PENDIDIKAN MALAYSIA BERSAMA MALAYSIA DIGITAL ECONOMY CORPORATION MDEC</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/JUNIOR COMPETENCY SCORE.jpg" alt="Junior Competency Score">
+    </div>
+</li>
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">KURSUS KENAIKAN PANGKAT PEGAWAI WARAN KRS</div>
+        <div class="achievement-desc">ANJURAN BAHAGIAN SUKAN, KOKURIKULUM DAN KESENIAN KEMENTERIAN PENDIDIKAN MALAYSIA KELOLAAN JABATAN PENDIDIKAN NEGERI JOHOR</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="certif/kebangsaan/KURSUS KENAIKAN PANGKAT Pengawai Waran KRS.jpg" alt="Kursus Kenaikan Pangkat">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">PENTAULIAHAN PANGKAT KRS</div>
+        <div class="achievement-desc">BAHAGIAN SUKAN, KOKURIKULUM DAN KESENIAN KEMENTERIAN PENDIDIKAN MALAYSIA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/PENTAULIAHAN PANGKAT KRS.png" alt="Pentauliahan Pangkat KRS">
+    </div>
+</li>
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">ASEAN QUIZ NATIONAL LEVEL COMPETITION</div>
+        <div class="achievement-desc">PENGIKTIRAFAN Ketua Setiausaha, Kementerian Komunikasi dan Multimedia Malaysia</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/ASEAN QUIZ NATIONAL LEVEL COMPETITION.jpg" alt="ASEAN Quiz">
+    </div>
+</li>
+						<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">PERTANDINGAN VIDEO KREATIF KESELAMATAN JALAN RAYA - TEMPAT KEEMPAT</div>
+        <div class="achievement-desc"> ANJURAN KUMPULAN PERANGSANG SELANGOR BERHAD RIDE HOME SAFE 2022</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <a href="https://youtu.be/8NRx5hMIjAM?si=hTfDaCFIW8nlzliu" target="_blank" style="display: block; text-decoration: none;">
+            <iframe 
+                width="150" 
+                height="84" 
+                src="https://www.youtube.com/embed/8NRx5hMIjAM?autoplay=1&mute=1&loop=1&controls=0&playlist=8NRx5hMIjAM" 
+                frameborder="0" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen
+                style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;">
+            </iframe>
+        </a>
+    </div>
+</li>
+						<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">E-PEMBELAJARAN KPS RIDE HOME SAFE</div>
+        <div class="achievement-desc">ANJURAN KUMPULAN PERANGSANG SELANGOR BERHAD KPS</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/e-Pembelajaran KPS.jpg" alt="e-Pembelajaran KPS">
+    </div>
+</li>
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">KANGAROO MATH COMPETITION 2022</div>
+        <div class="achievement-desc">KERJASAMA ANTARA KANGAROO MATH MALAYSIA DAN ASSOCIATION KANGOUROU SANS FRONTIERES AKSF PARIS, FRANCES</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="certif/kebangsaan/kgmath22.jpg" alt="Kangaroo Math 2022">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">JUNIOR POSTER MAKER</div>
+        <div class="achievement-desc">ANJURAN JAZRO BERSAMA MALAYSIA DIGITAL ECONOMY CORPORATION MDEC</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/JUNIOR POSTER MAKER.jpg" alt="Junior Poster Maker">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">FESTIVAL TEKNOLOGI HIJAU DAN STEM BIODIVERSITI</div>
+        <div class="achievement-desc">ANJURAN SEKOLAH MENENGAH SAINS SULTAN MOHAMAD JIWA, JABATAN PENDIDIKAN NEGERI KEDAH, CETREE, UNIVERSITI SAINS MALAYSIA, YAYASAN HIJAU MALAYSIA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/FESTIVAL TEKNOLOGI HIJAU DAN STEM BIODIVERSITI.jpg" alt="Festival Teknologi Hijau">
+    </div>
+</li>
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">CYBERWIRA COURSES</div>
+        <div class="achievement-desc">ANJURAN YAYASAN AMIR</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/CYBERWIRA courses.jpg" alt="Cyberwira Courses">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">FORUM KELUARGA BAHAGIA TANPA DADAH</div>
+        <div class="achievement-desc">KERJASAMA ANTARA ALL PARTY PARLIMENTARY GROUP MALAYSIA, JAWATANKUASA PEMULIHAN DADAH DAERAH KUBANG PASU DAN AGENSI ANTIDADAH KEBANGSAAN</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="certif/kebangsaan/FORUM KELUARGA BAHAGIA TANPA DADAH.jpg" alt="Forum Keluarga Bahagia">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">KANGAROO MATH COMPETITION 2021</div>
+        <div class="achievement-desc">KERJASAMA ANTARA KANGAROO MATH MALAYSIA DAN ASSOCIATION KANGOUROU SANS FRONTIERES AKSF PARIS, FRANCES</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="certif/kebangsaan/kgmath21.jpg" alt="Kangaroo Math 2021">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2020</div>
+        <div class="achievement-title">KANGAROO MATH COMPETITION 2020</div>
+        <div class="achievement-desc">KERJASAMA ANTARA KANGAROO MATH MALAYSIA DAN ASSOCIATION KANGOUROU SANS FRONTIERES AKSF PARIS, FRANCES</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="certif/kebangsaan/kgmath20.jpg" alt="Kangaroo Math 2020">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2020</div>
+        <div class="achievement-title">MODUL CELIK KEWANGAN</div>
+        <div class="achievement-desc">ANJURAN BANK SIMPANAN NASIONAL</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/Modul Celik Kewangan.jpg" alt="Modul Celik Kewangan">
+    </div>
+</li>
+</ul>
+                </div>
+
+                <!-- Peringkat Negeri -->
+                <div class="level-section">
+                    <div class="level-header">
+                        <h3 class="level-title">Peringkat Negeri</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">KARNIVAL SPM SELANGOR</div>
+        <div class="achievement-desc">ANJURAN UPEN DAN YAYASAN SELANGOR SERTA BERSAMA ASKGURU</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/Karnival Spm Selangor.jpg" alt="Karnival SPM Selangor">
+    </div>
+</li>
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">VIDEO KREATIF 2022</div>
+        <div class="achievement-desc">ANJURAN JABATAN PENDIDIKAN NEGERI SELANGOR SEKTOR SUMBER DAN TEKNOLOGI PENDIDIKAN</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://drive.google.com/file/d/17yUIDlwAXao8cMxkNb69o67v4CiogI5n/view?usp=drive_link" target="_blank" style="display: block; text-decoration: none;">
+                <video 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline
+                    style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;">
+                    <source src="video/Pertandingan Video Kreatif 2022.mp4" type="video/mp4">
+                    Browser anda tidak support video.
+                </video>
+            </a>
+        </div>
+        <div class="achievement-image" style="width: 150px;">
+            <img src="image/VIDEO KREATIF 22.jpg" alt="Video Kreatif 2022" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">KARNIVAL KOKURIKULUM PASUKAN BADAN BERUNIFORM PERINGKAT NEGERI SELANGOR</div>
+        <div class="achievement-desc">JABATAN PENDIDIKAN NEGERI SELANGOR UNIT PEMBANGUNAN BAKAT MURID</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/karnivalkrs.jpg" alt="Karnival KRS">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">CABARAN SIBER KADET REMAJA SEKOLAH</div>
+        <div class="achievement-desc">JABATAN PENDIDIKAN NEGERI SELANGOR</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/Cabaran Siber KRS.jpg" alt="Cabaran Siber KRS">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">"BACA ITU TERAPI" JOM BACA BERSAMA</div>
+        <div class="achievement-desc">ANJURAN PERBADANAN PERPUSTAKAAN AWAM SELANGOR</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/Jom Baca Bersama.jpg" alt="Jom Baca Bersama">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2020</div>
+        <div class="achievement-title">STEM ONLINE CHALLENGE SCIENCE CRAFT</div>
+        <div class="achievement-desc">JABATAN PENDIDIKAN SELANGOR</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/Stem Online Challenge.jpg" alt="STEM Online Challenge">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2019</div>
+        <div class="achievement-title">PERKHEMAHAN GABUNGAN MURID SEKOLAH-SEKOLAH MENENGAH PERINGKAT NEGERI SELANGOR SIRI 11/2019 BAGI PERKHEMAHAN PASUKAN BADAN BERUNIFORM</div>
+        <div class="achievement-desc">KELOLAAN PUSAT KOKURIKULUM NEGERI JABATAN PENDIDIKAN SELANGOR</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/Perkhemahan 19.jpg" alt="Perkhemahan 2019">
+    </div>
+</li>
+                    </ul>
+                </div>
+
+                <!-- Peringkat Daerah -->
+                <div class="level-section">
+                    <div class="level-header">
+                        <h3 class="level-title">Peringkat Daerah</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PERTANDINGAN TV PUSAT SUMBER SEKOLAH TVPSS - TEMPAT KETIGA KATEGORI VIDEO TVPSS TERBAIK SEKOLAH MENENGAH</div>
+        <div class="achievement-desc">PEJABAT PENDIDIKAN DAERAH KLANG</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://youtu.be/sVLEL5iXzzs?si=hNrOZ2UnqGGPa1LR" target="_blank" style="display: block; text-decoration: none;">
+                <iframe 
+                    width="150" 
+                    height="84" 
+                    src="https://www.youtube.com/embed/sVLEL5iXzzs?autoplay=1&mute=1&loop=1&controls=0&playlist=sVLEL5iXzzs" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen
+                    style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;">
+                </iframe>
+            </a>
+        </div>
+        <div class="achievement-image" style="width: 150px;">
+            <img src="image/daerah/TVPSS.png" alt="TVPSS" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</li>
+						<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PENGANUGERAHAN PANGKAT KADET</div>
+        <div class="achievement-desc">PENGIKTIRAFAN PEGAWAI KRS DAERAH PEJABAT PENDIDIKAN DAERAH</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/daerah/anugerahpangkat.png" alt="Anugerah Pangkat">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">BENGKEL KETUA PLATUN KADET REMAJA SEKOLAH, TUNAS KADET REMAJA SEKOLAH SEKOLAH-SEKOLAH PERINGKAT DAERAH KLANG</div>
+        <div class="achievement-desc">PEJABAT PENDIDIKAN DAERAH KLANG DAN SEKRETARIAT KRS DAERAH KLANG</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/daerah/bengkelkp.png" alt="Bengkel Kepimpinan">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PENCAPAIAN EMAS KAWAD STATIK DAN DINAMIK KRS</div>
+        <div class="achievement-desc">PEJABAT PENDIDIKAN DAERAH KLANG DAN SEKRETARIAT KRS DAERAH KLANG</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/daerah/bengkelkp2.png" alt="Bengkel Kepimpinan 2">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PERTANDINGAN KAWAD KAKI KATEGORI ASAS KADET REMAJA SEKOLAH DAERAH KLANG</div>
+        <div class="achievement-desc">PEJABAT PENDIDIKAN DAERAH KLANG</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/daerah/kawaddaerah.png" alt="Kawad Daerah">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">NAIB JOHAN PERTANDINGAN KAWAD KAKI KATEGORI ASAS KADET REMAJA SEKOLAH DAERAH KLANG</div>
+        <div class="achievement-desc">PEJABAT PENDIDIKAN DAERAH KLANG</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/daerah/kawadnj.png" alt="Kawad Negeri Johor">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PERTANDINGAN KUIZ BADAN BERUNIFORM DAERAH KLANG</div>
+        <div class="achievement-desc">PEJABAT PENDIDIKAN DAERAH KLANG</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/daerah/kuizkrs.png" alt="Kuiz KRS">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PERTANDINGAN ONLINE CHALLENGE SCIENCE, TECHNOLOGY, ENGINEERING AND MATHEMATICS STEM</div>
+        <div class="achievement-desc">PEJABAT PENDIDIKAN DAERAH KLANG</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/daerah/stem.png" alt="STEM">
+    </div>
+</li>
+                    </ul>
+                </div>
+
+                <!-- Peringkat Sekolah -->
+                <div class="level-section">
+                    <div class="level-header">
+                        <h3 class="level-title">Peringkat Sekolah</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">PENCAPAIAN PAJSK CEMERLANG</div>
+        <div class="achievement-desc">SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/spajsk.png" alt="P">
+    </div>
+</li>
+						<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">ANUGERAH SAHSIAH TERPUJI</div>
+        <div class="achievement-desc">ANJURAN UNIT HAL EHWAL MURID DAN KOKURIKULUM SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/asterpuji.jpg" alt="Anugerah Ster Puji">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">ANUGERAH BAKAT IT</div>
+        <div class="achievement-desc">ANJURAN UNIT HAL EHWAL MURID DAN KOKURIKULUM SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/bakatit.jpg" alt="Bakat IT">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">ANUGERAH CEMERLANG PAKES PENGAWAS SEKOLAH</div>
+        <div class="achievement-desc">ANJURAN UNIT HAL EHWAL MURID DAN KOKURIKULUM SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/cemerlangpakes.jpg" alt="Cemerlang PAKES">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">WATIKAH PELANTIKAN PENGAWAS SEKOLAH 2023</div>
+        <div class="achievement-desc">PENGIKTIRIFAN PENGETUA SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA, DATIN AISAH BINTI JAMAN</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/pengawas24.jpg" alt="Pengawas 2024">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">ANUGERAH KEHADIRAN PENUH TAHUN 2023</div>
+        <div class="achievement-desc">ANJURAN UNIT HAL EHWAL MURID DAN KOKURIKULUM SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/akehadiranpenuh.jpg" alt="Kehadiran Penuh">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">JOHAN PERTANDINGAN POSTER ANIMASI SEMPENA BULAN KEBANGSAAN</div>
+        <div class="achievement-desc">SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/johanposter.jpg" alt="Johan Poster">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">JASAMU DIKENANG TAHUN 2023</div>
+        <div class="achievement-desc">ANJURAN UNIT HAL EHWAL MURID DAN KOKURIKULUM SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/jasamudikenang.jpg" alt="Jasa Mudi Kenang">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">KEM KEPIMPINAN PENGAWAS</div>
+        <div class="achievement-desc">ANJURAN SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/Kem Kepimpinan Pengawas.jpg" alt="Kem Kepimpinan Pengawas">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">PESERTA LELAKI TERBAIK KESELURUHAN</div>
+        <div class="achievement-desc">ANJURAN SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/Peserta Lelaki Terbaik Keseluruhan.jpg" alt="Peserta Lelaki Terbaik">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">KURSUS KEPIMPINAN JAWATANKUASA TERTINGGI UNIT KOKURIKULUM SMK KAMPONG JAWA</div>
+        <div class="achievement-desc">SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/kursusajk.jpg" alt="Kursus AJK">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">AJK UNIT FOTOGRAFI SKUAD WAJA MAJALAH SEKOLAH</div>
+        <div class="achievement-desc">PENGIKTIRIFAN PENGETUA SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA, DATIN AISAH BINTI JAMAN</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/ajkwaja.jpg" alt="AJK WAJA">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2023</div>
+        <div class="achievement-title">ANUGERAH BAKAT IT MURID</div>
+        <div class="achievement-desc">SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/bakatit2.jpg" alt="Bakat IT 2">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">HIGHLY IMMERSIVE PROGRAMME H.I.P 2022</div>
+        <div class="achievement-desc">JAWATANKUASA KURIKULUM SMK KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/hip22.jpg" alt="HIP 2022">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">PERTANDINGAN INFOGRAFIK - TEMPAT PERTAMA</div>
+        <div class="achievement-desc">ANJURAN KARNIVAL STEM SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA, DATIN AISAH BINTI JAMAN</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/infografik.jpg" alt="Infografik">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">WATIKAH PELANTIKAN PENGAWAS SEKOLAH 2022</div>
+        <div class="achievement-desc">PENGIKTIRIFAN PENGETUA SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA, DATIN AISAH BINTI JAMAN</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/pengawas22.jpg" alt="Pengawas 2022">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2022</div>
+        <div class="achievement-title">PESERTA TERBAIK PAKES 2022</div>
+        <div class="achievement-desc">KEM KEPIMPINAN PASUKAN KEBAJIKAN DAN SUKARELAWAN SEKOLAH PAKES BERSAMA AJK KELAB PERSATUAN KOKURIKULUM TAHUN 2022</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/terbaikpakes22.jpg" alt="Terbaik PAKES 2022">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">PROGRAM HALA TUJU KERJAYA MURID NORMA BARU "KERJAYA SAYA, MASA DEPAN SAYA"</div>
+        <div class="achievement-desc">UNIT HAL EHWAL MURID UNIT BIMBINGAN DAN KAUNSELING DAN DISIPLIN, UNIT KURIKULUM, UNIT KOKURIKULUM DAN PIBG SMK KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/kerjaya.jpg" alt="Kerjaya">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">PAKES Leadership E-Camp 2021</div>
+        <div class="achievement-desc">ANJURAN HEM, UBK DAN PAKES SMK KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/leadership21.jpg" alt="Leadership 2021">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">PROGRAM BULAN KAUNSELING NORMA BAHARU 2021</div>
+        <div class="achievement-desc">UNIT HAL EHWAL MURID UBK DAN DISIPLIN SERTA PIBG SMK KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/bulankaunseling.jpg" alt="Bulan Kaunseling">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">JOHAN PERTANDINGAN POSTER DIGITAL</div>
+        <div class="achievement-desc">ANJURAN KARNIVAL AKADEMIK DIGITAL SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/johanposterdigital.jpg" alt="Johan Poster Digital">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">NAIB JOHAN VIDEO PENDEK</div>
+        <div class="achievement-desc">ANJURAN KARNIVAL AKADEMIK DIGITAL SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/njvideopendek.jpg" alt="Naib Johan Video Pendek">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">PENYERTAAN PERTANDINGAN VIDEO PENDEK</div>
+        <div class="achievement-desc">ANJURAN KARNIVAL AKADEMIK DIGITAL SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/penyertaanvp.jpg" alt="Penyertaan VP">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2021</div>
+        <div class="achievement-title">ANUGERAH MURID AKTIF BADAN BERUNIFORM PALING AKTIF</div>
+        <div class="achievement-desc">MAJLIS ANUGERAH KECERMALANGAN HAL EHWAL MURID DAN KOKURIKULUM</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/muridaktifunif.jpg" alt="Murid Aktif UNIF">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2020</div>
+        <div class="achievement-title">MURID AKTIF KELAB PERSATUAN</div>
+        <div class="achievement-desc">MAJLIS ANUGERAH KECERMALANGAN KOKURIKULUM</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/aktifkelabpers.jpg" alt="Aktif Kelab Persatuan">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2020</div>
+        <div class="achievement-title">JOHAN PERTANDINGAN KAWAD KAKI PERINGKAT SEKOLAH</div>
+        <div class="achievement-desc">SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/kawadkaki.jpg" alt="Kawad Kaki">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2020</div>
+        <div class="achievement-title">KHIDMAT BAKTI DALAM AKTIVITI KOKURIKULUM</div>
+        <div class="achievement-desc">SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/khidmatbakti.jpg" alt="Khidmat Bakti">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2020</div>
+        <div class="achievement-title">WATIKAH PELANTIKAN PENGAWAS SEKOLAH 2020</div>
+        <div class="achievement-desc">PENGIKTIRIFAN PENGETUA SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA, TUAN MOHAMAD KAMALUDIN BIN TAIB</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/pengawas20.jpg" alt="Pengawas 2020">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2019</div>
+        <div class="achievement-title">PERTANDINGAN MEMBUAT BENTO</div>
+        <div class="achievement-desc">ANJURAN UNIT KOKURIKULUM SMKKJ</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/bento.jpg" alt="Bento">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2019</div>
+        <div class="achievement-title">JOHAN PERMAINAN DALAM CONGKAK SEMPENA MINGGU PUSAT SUMBER</div>
+        <div class="achievement-desc">SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/congkak.jpg" alt="Congkak">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2019</div>
+        <div class="achievement-title">ANUGERAH KEHADIRAN PENUH 2019</div>
+        <div class="achievement-desc">MAJLIS APRESIASI HAL EHWAL MURID DAN KOKURIKULUM 2029</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/kehadiranpenuh19.jpg" alt="Kehadiran Penuh 2019">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2019</div>
+        <div class="achievement-title">PERKHEMAHAN PERDANA BADAN BERUNIFORM SMK KAMPONG JAWA</div>
+        <div class="achievement-desc">ANJURAN KOLEJ TUN HUSSEIN ONN</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/kemukm.jpg" alt="Kem UKM">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2019</div>
+        <div class="achievement-title">MINI CAR MINGGU SAINS DAN MATEMATIK - TEMPAT KEEMPAT</div>
+        <div class="achievement-desc">SEKOLAH MENENGAH KEBANGSAAN KAMPONG JAWA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/sekolah/stem19.jpg" alt="STEM 2019">
+    </div>
+</li>
+					</ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Institusi Pengajian Tinggi -->
+    <div id="modal-institusi" class="modal" onclick="closeModalOutside(event, 'institusi')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal('institusi')">×</button>
+            <div class="modal-header">
+                <h2>Institusi Pengajian Tinggi</h2>
+                <p>Pencapaian di universiti/kolej</p>
+            </div>
+            <div class="modal-body">
+                <ul class="achievement-list">
+                    <li class="achievement-item" style="display: flex; justify-content: space-between;">
+                        <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-title">PROGRAM KAMPUNG CHRONICLES KERJASAMA TEAM SELANGOR X MyCatalyz</div>
+                            <div class="achievement-desc">Menjadi Pengarah Program di KOLEJ TEKNOLOGI ANTARABANGSA CYBERNETICS</div>
+                        </div>
+                        <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+                            <img src="image/kolej/pipts/20251203_181848_604.jpg" alt="Sijil Sukarelawan">
+                        </div>
+                    </li>
+					<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2025</div>
+        <div class="achievement-title">MENJADI KREW BAGI ACARA KLPF 2025</div>
+        <div class="achievement-desc">KUALA LUMPUR PHOTOGRAPHY FESTIVAL 2025</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://www.facebook.com/share/p/1DH3HY1Lr8/" target="_blank" style="display: flex; align-items: center; justify-content: center; text-decoration: none; background: #1877f2; color: white; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div style="text-align: center;">
+                    <svg style="width: 40px; height: 40px; margin-bottom: 5px;" fill="white" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    <div style="font-size: 11px; font-weight: bold;">Lihat di Facebook</div>
+                </div>
+            </a>
+        </div>
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://www.facebook.com/share/p/1DH3HY1Lr8/" target="_blank" style="display: block; text-decoration: none;">
+                <img src="image/kolej/klpfcrew.jpg" alt="KLPF Crew" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;">
+            </a>
+        </div>
+    </div>
+</li>
+					<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2025</div>
+        <div class="achievement-title">PERTANDINGAN PERARAKAN SEMPENA MAULIDUR RASUL</div>
+        <div class="achievement-desc">PERINGKAT ZON 3, JABATAN AGAMA ISLAM WILAYAH PERSEKUTUAN</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://drive.google.com/file/d/1Pu33N9UBPyqLyzinl9k_iGQ8Hg_BYun0/view?usp=drive_link" target="_blank" style="display: block; text-decoration: none;">
+                <video 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline
+                    style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;">
+                    <source src="Video/Perarakan Maulidur Rasul.mp4" type="video/mp4">
+                    Browser anda tidak support video.
+                </video>
+            </a>
+        </div>
+        <div class="achievement-image" style="width: 150px;">
+            <img src="image/kolej/perarakan.jpg" alt="Perarakan" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</li>
+					<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2025</div>
+        <div class="achievement-title">SAHABAT HASIL</div>
+        <div class="achievement-desc">LEMBAGA HASIL DALAM NEGERI MALAYSIA</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/kolej/1766328054215.png" alt="Perarakan">
+    </div>
+</li>
+					<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">TOP 30 GAMBAR TERBAIK UNTUK ACARA KUALA LUMPUR PHOTOGRAPHY FESTIVAL 2024</div>
+        <div class="achievement-desc">KUALA LUMPUR PHOTOGRAPHY FESTIVAL 2024</div>
+    </div>
+    <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+        <img src="image/kolej/klpf24.jpg" alt="KLPF 2024">
+    </div>
+</li>
+
+<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2024</div>
+        <div class="achievement-title">WATIKAH PELANTIKAN MAJLIS PERWAKILAN PELAJAR (MPP) SESI 2024/2025</div>
+        <div class="achievement-desc">KOLEJ TEKNOLOGI ANTARABANGSA CYBERNETICS</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <div class="achievement-image" style="width: 150px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/IMG-20250417-WA0061.jpg" alt="MPP Photo 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/IMG-20250417-WA0063.jpg" alt="MPP Photo 2" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        <div class="achievement-image" style="width: 150px;">
+            <img src="image/kolej/mpp.jpg" alt="MPP Sijil" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</li>
+					  </ul>
+            </div>  <!-- Close modal-body -->
+        </div>  <!-- Close modal-content -->
+    </div>  <!-- Close modal -->
+       
+    <!-- Modal for Penglibatan Luar -->
+    <div id="modal-luar" class="modal" onclick="closeModalOutside(event, 'luar')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal('luar')">×</button>
+            <div class="modal-header">
+                <h2>Penglibatan Luar</h2>
+                <p>Aktiviti dan pencapaian luar</p>
+            </div>
+            <div class="modal-body">
+                <ul class="achievement-list">
+                    <li class="achievement-item" style="display: flex; justify-content: space-between;">
+                        <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-title">DEMOKRASI KOMUNITI DE'KOM</div>
+                            <div class="achievement-desc">IYC, BANDAR TUN RAZAK</div>
+                        </div>
+                        <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+                            <img src="image/kolej/pipts/IMG_20251221_165214.jpg" alt="DEKOM">
+                        </div>
+                    </li>
+					<li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px; height: 150px">
+        <div class="achievement-year">2025</div>
+        <div class="achievement-title">BENGKEL DEMOKRASI WATAN</div>
+        <div class="achievement-desc">IDEAS HOTEL, KUALA LUMPUR</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <!-- Flip Card 1 -->
+        <div class="achievement-image" style="width: 200px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/IMG-20250615-WA0163.jpg" alt="Watan 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/IMG-20250615-WA0227.jpg" alt="Watan 2" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 2 -->
+        <div class="achievement-image" style="width: 150px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/IMG-20250615-WA0228.jpg" alt="Watan 3" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/IMG-20250615-WA0229.jpg" alt="Watan 4" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+                    <li class="achievement-item" style="display: flex; justify-content: space-between;">
+                        <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-title">BENGKEL DEMOKRASI KOMUNITI TAHAP 2</div>
+                            <div class="achievement-desc">KGB Camp, Kemensah, Ulu Kelang, Selangor</div>
+                        </div>
+                        <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+                            <img src="image/kolej/pipts/IMG-20250727-WA0068.jpg" alt="DEKOM2">
+                        </div>
+                    </li>
+                    <li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px; height: 150px">
+        <div class="achievement-year">2025</div>
+        <div class="achievement-title">KEM TRANSISI KEPIMPINAN BELIA FASA 1</div>
+        <div class="achievement-desc">PUSAT LATIHAN KENEGARAAN TANJUNG RHU, SG PELEK</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;">
+        <!-- Flip Card 1 -->
+        <div class="achievement-image" style="width: 200px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateX(180deg)' ? 'rotateX(0deg)' : 'rotateX(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/20250603_030110_488.jpg" alt="Kem 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateX(180deg);">
+                    <img src="image/kolej/pipts/20250603_030854_483.jpg" alt="Kem 2" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 2 -->
+        <div class="achievement-image" style="width: 150px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateX(180deg)' ? 'rotateX(0deg)' : 'rotateX(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/20250603_031027_539.jpg" alt="Kem 3" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateX(180deg);">
+                    <img src="image/kolej/pipts/20250603_031854_367.jpg" alt="Kem 4" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 3 -->
+        <div class="achievement-image" style="width: 150px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateX(180deg)' ? 'rotateX(0deg)' : 'rotateX(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/20250603_032123_139.jpg" alt="Kem 5" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateX(180deg);">
+                    <img src="image/kolej/pipts/IMG-20241215-WA0099.jpg" alt="Kem 6" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 4 -->
+        <div class="achievement-image" style="width: 200px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateX(180deg)' ? 'rotateX(0deg)' : 'rotateX(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/IMG-20250518-WA0098.jpg" alt="Kem 7" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateX(180deg);">
+                    <img src="image/kolej/pipts/IMG-20250520-WA0010.jpg" alt="Kem 8" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 5 -->
+        <div class="achievement-image" style="width: 150px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateX(180deg)' ? 'rotateX(0deg)' : 'rotateX(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/IMG-20250520-WA0044.jpg" alt="Kem 9" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateX(180deg);">
+                    <img src="image/kolej/pipts/IMG-20250520-WA0048.jpg" alt="Kem 10" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 6 -->
+        <div class="achievement-image" style="width: 150px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateX(180deg)' ? 'rotateX(0deg)' : 'rotateX(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/MBM11253.JPG" alt="Kem 11" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateX(180deg);">
+                    <img src="image/kolej/pipts/MBM12503.JPG" alt="Kem 12" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 7 -->
+        <div class="achievement-image" style="width: 200px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateX(180deg)' ? 'rotateX(0deg)' : 'rotateX(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/MBM13475 (1).JPG" alt="Kem 13" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateX(180deg);">
+                    <img src="image/kolej/pipts/MBM13480 (1).JPG" alt="Kem 14" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+					<li class="achievement-item" style="display: flex; justify-content: space-between;">
+                        <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-title">KURSUS KEPIMPINAN DINAMIK</div>
+                            <div class="achievement-desc">ReSkill Live-Learning Platform OnLIVE</div>
+                        </div>
+                        <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+                            <img src="image/kolej/1766341236153.png" alt="SijilKURSUS">
+                        </div>
+                    </li>
+                   <li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px; height: 300px">
+        <div class="achievement-year">2025</div>
+        <div class="achievement-title">PROGRAM INDUKSI DUTA TEAM SELANGOR</div>
+        <div class="achievement-desc">KGB Camp, Kemensah, Selangor</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <!-- Flip Card 1 -->
+        <div class="achievement-image" style="width: 200px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/_DSC0107.jpg" alt="Induksi 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/_DSC0204.jpg" alt="Induksi 2" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 2 -->
+        <div class="achievement-image" style="width: 150px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/_DSC0072.jpg" alt="Induksi 3" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/_DSC0036.jpg" alt="Induksi 4" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 3 -->
+        <div class="achievement-image" style="width: 150px; perspective: 1000px;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div class="flip-card-front" style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/_DSC0293.jpg" alt="Induksi 5" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div class="flip-card-back" style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/20250630_000438_480.jpg" alt="Induksi 6" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+                    <li class="achievement-item" style="display: flex; justify-content: space-between;">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2025</div>
+        <div class="achievement-title">PROGRAM SEMANGAT MERDEKA TAMAN MEDAN, PETALING JAYA X PERINTIS TEAM SELANGOR</div>
+        <div class="achievement-desc">MENJADI SALAH SEORANG SUKARELAWAN YANG MENGANJURKAN PROGRAM</div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <!-- Instagram Embed Preview (Silent Autoplay) -->
+        <div class="achievement-image" style="width: 300px; height: 400px; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative;">
+            <iframe 
+                src="https://www.instagram.com/reel/DNXJV-3zi1P/embed" 
+                style="width: 100%; height: 100%; border: none; overflow: hidden;"
+                frameborder="0"
+                scrolling="no"
+                allowtransparency="true"
+                allow="encrypted-media">
+            </iframe>
+        </div>
+        
+        <!-- Image -->
+        <div class="achievement-image" style="width: 150px;">
+            <a href="https://www.instagram.com/reel/DNXJV-3zi1P/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" style="display: block; text-decoration: none;">
+                <img src="image/kolej/pipts/IMG_20250810_080737.jpg" alt="Sukarelawan" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;">
+            </a>
+        </div>
+    </div>
+</li>
+					<li class="achievement-item">
+    <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+        <div class="achievement-year">2025</div>
+        <div class="achievement-title">PROGRAM KOLOKIUM PERINTIS TEAM SELANGOR</div>
+        <div class="achievement-desc">Mencapai anugerah zon sukarelawan kategori "Dokumentasi Terbaik"</div>
+    </div>
+    <div style="display: flex; gap: 15px; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; max-width: 800px; padding-bottom: 10px;">
+        <!-- Instagram Embed 1 -->
+        <div class="achievement-image" style="width: 300px; height: 400px; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex-shrink: 0;">
+            <iframe 
+                src="https://www.instagram.com/p/DNsjBb5aD9E/embed" 
+                style="width: 100%; height: 100%; border: none;"
+                frameborder="0"
+                scrolling="no"
+                allowtransparency="true"
+                allow="encrypted-media">
+            </iframe>
+        </div>
+        
+        <!-- Instagram Embed 2 -->
+        <div class="achievement-image" style="width: 300px; height: 400px; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex-shrink: 0;">
+            <iframe 
+                src="https://www.instagram.com/reel/DN3GPPF2NBQ/embed" 
+                style="width: 100%; height: 100%; border: none;"
+                frameborder="0"
+                scrolling="no"
+                allowtransparency="true"
+                allow="encrypted-media">
+            </iframe>
+        </div>
+        
+        <!-- Flip Card 1 -->
+        <div style="width: 120px; perspective: 1000px; flex-shrink: 0;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/IMG_20250910_072302 (1).jpg" alt="Kolokium 1" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/IMG-20250727-WA0023.jpg" alt="Kolokium 2" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 2 -->
+        <div style="width: 120px; perspective: 1000px; flex-shrink: 0;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/IMG-20250727-WA0052.jpg" alt="Kolokium 3" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/IMG-20250727-WA0054.jpg" alt="Kolokium 4" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flip Card 3 -->
+        <div style="width: 120px; perspective: 1000px; flex-shrink: 0;">
+            <div class="flip-card" style="width: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;" 
+                 onclick="this.style.transform = this.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div style="position: relative; backface-visibility: hidden;">
+                    <img src="image/kolej/pipts/IMG-20250727-WA0068.jpg" alt="Kolokium 5" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+                <div style="position: absolute; top: 0; left: 0; width: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                    <img src="image/kolej/pipts/IMG_20250910_072302 (1).jpg" alt="Kolokium 6" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: block;">
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+					<li class="achievement-item" style="display: flex; justify-content: space-between;">
+                        <div class="achievement-content" style="flex: 1; padding-right: 20px;">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-title">GERAKAN PENGGUNA SISWA KE HARI BERSAMA NGO KEPENGGUNAAN </div>
+                            <div class="achievement-desc">DEWAN SERBA GUNA KPDN PUTRAJAYA</div>
+                        </div>
+                        <div class="achievement-image" style="width: 150px; flex-shrink: 0;">
+                            <img src="image/kolej/pipts/IMG20250314090401.png" alt="kpdnkk">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openModal(type) {
+            const modal = document.getElementById('modal-' + type);
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            const modal = document.getElementById('modal-' + type);
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOutside(event, type) {
+            if (event.target.classList.contains('modal')) {
+                closeModal(type);
+            }
+        }
+
+        // Close modal dengan ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal.show');
+                modals.forEach(modal => {
+                    modal.classList.remove('show');
+                });
+                document.body.style.overflow = 'auto';
+            }
+			
+			// Script untuk loop video dari saat 32 hingga 37
+document.addEventListener('DOMContentLoaded', function() {
+    const videos = document.querySelectorAll('video[onloadedmetadata]');
+    videos.forEach(video => {
+        video.addEventListener('timeupdate', function() {
+            if (this.currentTime >= 37) {
+                this.currentTime = 32;
+            }
+        });
+    });
+});
+			
+        });
+    </script>
+</body>
+</html>

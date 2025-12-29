@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nezofication - Portfolio Folders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5e6ff 0%, #e6f3ff 25%, #e6fff9 50%, #fff0f5 75%, #ffe6f0 100%);
+            min-height: 100vh;
+            color: #5a5a5a;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 2px solid rgba(197, 179, 255, 0.3);
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 20px;
+            animation: glassFloat 4s ease-in-out infinite;
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .nav-logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%,
+                rgba(255,255,255,0.85),
+                rgba(255,255,255,0.35) 30%,
+                rgba(120,115,245,0.25) 55%,
+                rgba(79,172,254,0.2) 75%,
+                rgba(255,255,255,0.15));
+            border: 1px solid rgba(255,255,255,0.45);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset -6px -6px 12px rgba(255,255,255,0.35),
+                inset 6px 6px 12px rgba(0,0,0,0.12),
+                0 10px 20px rgba(120,115,245,0.25);
+            animation: glassMorph 6s ease-in-out infinite;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.6),
+                rgba(120,115,245,0.4),
+                transparent 70%);
+            filter: blur(12px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .nav-logo-inner::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: linear-gradient(120deg,
+                transparent 30%,
+                rgba(255,255,255,0.35) 45%,
+                transparent 60%);
+            animation: glassShine 5s linear infinite;
+        }
+
+        .nav-logo-inner::after {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 15%;
+            width: 30%;
+            height: 30%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.9),
+                transparent 70%);
+            border-radius: 50%;
+            filter: blur(6px);
+        }
+
+        .nav-logo-inner img {
+            width: 45px;
+            height: 23px;
+            z-index: 2;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+        }
+
+        @keyframes glassFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 50%; }
+            50% { border-radius: 47% 53% 52% 48% / 50% 48% 52% 50%; }
+        }
+
+        @keyframes glassShine {
+            0% { transform: translateX(-40%) rotate(0deg); }
+            100% { transform: translateX(40%) rotate(0deg); }
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            border-radius: 50px;
+            color: #5a5a5a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px 40px;
+            gap: 60px;
+        }
+
+        .portfolio-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1600px;
+            width: 100%;
+        }
+
+        /* Left Side - Image */
+        .portfolio-image {
+            flex: 0 0 400px;
+            height: 600px;
+            position: relative;
+            animation: fadeInLeft 1.2s ease-out;
+        }
+
+        .portfolio-image::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, 
+                #ff6ec4, #7873f5, #4facfe, #00f2fe, 
+                #43e97b, #38f9d7, #fa709a, #fee140);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.7;
+        }
+
+        .portfolio-image-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 40px rgba(120, 115, 245, 0.4),
+                inset 0 0 40px rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, 
+                rgba(255, 110, 196, 0.3) 0%,
+                rgba(120, 115, 245, 0.3) 50%,
+                rgba(79, 172, 254, 0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .portfolio-image-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .portfolio-image-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 179, 217, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(179, 217, 255, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(197, 179, 255, 0.3) 0%, transparent 60%);
+            animation: gradientMove 10s ease infinite;
+        }
+
+        .image-placeholder {
+            font-size: 5rem;
+            opacity: 0.6;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .portfolio-image:hover .portfolio-image-inner::before {
+            animation: gradientMove 5s ease infinite;
+        }
+
+        /* Right Side - Folders Container with Glass Effect */
+        .folders-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            animation: fadeInRight 1.2s ease-out;
+            min-width: 0;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(197, 179, 255, 0.3);
+        }
+
+        .folders-header {
+            text-align: left;
+        }
+
+        .folders-header h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 25%, #b3d9ff 50%, #b3ffd9 75%, #ffcce6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .folders-header p {
+            font-size: 1.1rem;
+            color: #6a6a6a;
+            margin-bottom: 20px;
+        }
+
+        /* Scrollable Folders with Enhanced Styling */
+        .folders-scroll {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 30px 20px;
+            scroll-behavior: smooth;
+            cursor: grab;
+            width: 100%;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(197, 179, 255, 0.2);
+        }
+
+        .folders-scroll:active {
+            cursor: grabbing;
+        }
+
+        .folders-scroll::-webkit-scrollbar {
+            height: 14px;
+        }
+
+        .folders-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            margin: 0 10px;
+            box-shadow: inset 0 0 10px rgba(197, 179, 255, 0.3);
+            border: 1px solid rgba(197, 179, 255, 0.2);
+        }
+
+        .folders-scroll::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, #c5b3ff, #b3d9ff);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 2px 5px rgba(120, 115, 245, 0.3);
+        }
+
+        .folders-scroll::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(90deg, #ffb3d9, #c5b3ff);
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.8);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .folders-scroll::-webkit-scrollbar-thumb:active {
+            background: linear-gradient(90deg, #ff6ec4, #7873f5);
+        }
+
+        .folders-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(197, 179, 255, 0.8) rgba(255, 255, 255, 0.3);
+        }
+
+        /* Folder Card with Rounded Corners */
+        .folder-card {
+            flex: 0 0 280px;
+            min-width: 280px;
+            height: 350px;
+            border-radius: 35px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            animation: fadeInScale 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .folder-card:nth-child(1) { animation-delay: 0.1s; }
+        .folder-card:nth-child(2) { animation-delay: 0.15s; }
+        .folder-card:nth-child(3) { animation-delay: 0.2s; }
+        .folder-card:nth-child(4) { animation-delay: 0.25s; }
+        .folder-card:nth-child(5) { animation-delay: 0.3s; }
+        .folder-card:nth-child(6) { animation-delay: 0.35s; }
+
+        .folder-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 35px;
+            background: linear-gradient(45deg, 
+                #ff6ec4, #7873f5, #4facfe, #00f2fe, 
+                #43e97b, #38f9d7);
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
+        }
+
+        .folder-card:hover::before {
+            opacity: 1;
+            filter: blur(20px);
+        }
+
+        .folder-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 35px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 
+                inset 0 0 40px rgba(255, 255, 255, 0.5),
+                0 10px 40px rgba(120, 115, 245, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .folder-inner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 45%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.1) 55%,
+                transparent 100%);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .folder-card:hover .folder-inner::before {
+            right: 150%;
+        }
+
+        .folder-card:hover .folder-inner {
+            transform: translateY(-10px);
+            box-shadow: 
+                inset 0 0 60px rgba(255, 255, 255, 0.7),
+                0 20px 60px rgba(120, 115, 245, 0.5);
+        }
+
+        .folder-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, 
+                rgba(255, 179, 217, 0.3) 0%,
+                rgba(197, 179, 255, 0.3) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 5px 20px rgba(197, 179, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .folder-card:hover .folder-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(197, 179, 255, 0.5);
+        }
+
+        .folder-number {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #c5b3ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .folder-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #5a5a5a;
+            line-height: 1.4;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .folder-card:hover .folder-title {
+            color: #7873f5;
+        }
+
+        .folder-arrow {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffb3d9, #c5b3ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(197, 179, 255, 0.4);
+        }
+
+        .folder-card:hover .folder-arrow {
+            transform: translateX(5px);
+            box-shadow: 0 5px 25px rgba(197, 179, 255, 0.6);
+        }
+
+        .scroll-hint {
+            text-align: center;
+            color: #6a6a6a;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            animation: fadeIn 2s ease-out 1.5s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .scroll-hint::before,
+        .scroll-hint::after {
+            content: '→';
+            font-size: 1.2rem;
+            animation: slideArrow 1.5s ease-in-out infinite;
+        }
+
+        .scroll-hint::before {
+            animation-delay: 0s;
+        }
+
+        .scroll-hint::after {
+            animation-delay: 0.3s;
+        }
+
+        /* Animations */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes gradientMove {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(10%, 10%) scale(1.1);
+            }
+            50% {
+                transform: translate(-10%, 10%) scale(0.9);
+            }
+            75% {
+                transform: translate(10%, -10%) scale(1.05);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 30px rgba(255, 179, 217, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 179, 217, 0.6);
+            }
+        }
+
+        @keyframes slideArrow {
+            0%, 100% {
+                transform: translateX(0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateX(5px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .portfolio-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .portfolio-image {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 500px;
+                height: 400px;
+            }
+
+            .folders-header h2 {
+                font-size: 2.5rem;
+                text-align: center;
+            }
+
+            .folders-header p {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-section {
+                padding: 100px 20px 20px;
+            }
+
+            .portfolio-image {
+                height: 300px;
+            }
+
+            .folders-container {
+                padding: 30px 20px;
+            }
+
+            .folders-header h2 {
+                font-size: 2rem;
+            }
+
+            .folder-card {
+                flex: 0 0 240px;
+                min-width: 240px;
+                height: 320px;
+            }
+
+            .folder-inner {
+                padding: 20px;
+            }
+
+            .folder-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+
+            .folder-title {
+                font-size: 1.1rem;
+            }
+
+            .image-placeholder {
+                font-size: 3rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+ <!-- Navigation (Fixed, appears after scrolling) -->
+    <div class="nav-container" id="navbar">
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='homepage.html#hasil';">
+    TENTANG
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='pencapaian.html';">PENCAPAIAN</button>
+        
+        <a href="homepage.html" class="nav-logo">
+    <div class="nav-logo-inner">
+        <img src="logoremake.png" alt="Logo">
+    </div>
+</a>
+
+        
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='portfolioo.html';">
+    KARYA KREATIF
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='contact.html';">HUBUNGI</button>
+									
+    </div>
+
+    <section class="portfolio-section">
+        <div class="portfolio-container">
+            <div class="portfolio-image">
+                <div class="portfolio-image-inner">
+                    <img src="image/portfolio/20250819_012644_136.jpg" alt="Portfolio Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="image-placeholder" style="display: none;">🎨</div>
+                </div>
+            </div>
+
+            <div class="folders-container">
+                <div class="folders-header">
+                    <h2>Rekod Penilaian Saya</h2>
+                    <p>Ikuti jejak akademik saya merentasi pelbagai bidang</p>
+                </div>
+
+                <div class="folders-scroll" id="foldersScroll">
+                    <!-- Folder 1 -->
+<div class="folder-card" onclick="window.location.href='Applications of Information Technology.html'">
+    <div class="folder-inner">
+        <div>
+            <div class="folder-number">Folder 01</div>
+            <div class="folder-icon">💻</div>
+            <div class="folder-title">Applications of Information Technology</div>
+        </div>
+        <div class="folder-arrow">→</div>
+    </div>
+</div>
+                   <!-- Folder 2 -->
+<div class="folder-card" onclick="window.location.href='Appreciation Of Ethics And Civilizations.html'">
+    <div class="folder-inner">
+        <div>
+            <div class="folder-number">Folder 02</div>
+            <div class="folder-icon">🌍</div>
+            <div class="folder-title">Appreciation of Ethics and Civilizations</div>
+        </div>
+        <div class="folder-arrow">→</div>
+    </div>
+</div>
+
+                 <!-- Folder 3 -->
+<div class="folder-card" onclick="window.location.href='Art History.html'">
+    <div class="folder-inner">
+        <div>
+            <div class="folder-number">Folder 03</div>
+            <div class="folder-icon">🎨</div>
+            <div class="folder-title">Art History</div>
+        </div>
+        <div class="folder-arrow">→</div>
+    </div>
+</div>
+                    <!-- Folder 4 -->
+                    <div class="folder-card" onclick="window.location.href='Digital Illustration.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 04</div>
+                                <div class="folder-icon">✏️</div>
+                                <div class="folder-title">Digital Illustration</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 5 -->
+                    <div class="folder-card" onclick="window.location.href='Digital Storytelling.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 05</div>
+                                <div class="folder-icon">📖</div>
+                                <div class="folder-title">Digital Storytelling</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 6 -->
+                    <div class="folder-card" onclick="window.location.href='English Proficiency for Academic Purposes.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 06</div>
+                                <div class="folder-icon">📚</div>
+                                <div class="folder-title">English Proficiency for Academic Purposes</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 7 -->
+                    <div class="folder-card" onclick="window.location.href='Animation Principles.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 07</div>
+                                <div class="folder-icon">🎬</div>
+                                <div class="folder-title">Animation Principles</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 8 -->
+                    <div class="folder-card" onclick="window.location.href='Digital Imaging.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 08</div>
+                                <div class="folder-icon">🖼️</div>
+                                <div class="folder-title">Digital Imaging</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 9 -->
+                    <div class="folder-card" onclick="window.location.href='Digital Photography.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 09</div>
+                                <div class="folder-icon">📷</div>
+                                <div class="folder-title">Digital Photography</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 10 -->
+                    <div class="folder-card" onclick="window.location.href='Entrepreneurship Skills.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 10</div>
+                                <div class="folder-icon">💼</div>
+                                <div class="folder-title">Entrepreneurship Skills</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 11 -->
+                    <div class="folder-card" onclick="window.location.href='Typography Design.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 11</div>
+                                <div class="folder-icon">🔤</div>
+                                <div class="folder-title">Typography Design</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 12 -->
+                    <div class="folder-card" onclick="window.location.href='Visual Communication.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 12</div>
+                                <div class="folder-icon">📢</div>
+                                <div class="folder-title">Visual Communication</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 13 -->
+                    <div class="folder-card" onclick="window.location.href='Design Concept.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 13</div>
+                                <div class="folder-icon">💡</div>
+                                <div class="folder-title">Design Concept</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 14 -->
+                    <div class="folder-card" onclick="window.location.href='Islamic Civilisation in Malaysia.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 14</div>
+                                <div class="folder-icon">🕌</div>
+                                <div class="folder-title">Islamic Civilisation in Malaysia</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 15 -->
+                    <div class="folder-card" onclick="window.location.href='Media, Culture and Technology.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 15</div>
+                                <div class="folder-icon">📺</div>
+                                <div class="folder-title">Media, Culture and Technology</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 16 -->
+                    <div class="folder-card" onclick="window.location.href='Audio Video Editing.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 16</div>
+                                <div class="folder-icon">🎥</div>
+                                <div class="folder-title">Audio Video Editing</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 17 -->
+                    <div class="folder-card" onclick="window.location.href='Design and Project Management.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 17</div>
+                                <div class="folder-icon">📊</div>
+                                <div class="folder-title">Design and Project Management</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 18 -->
+                    <div class="folder-card" onclick="window.location.href='Digital Animation.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 18</div>
+                                <div class="folder-icon">🎞️</div>
+                                <div class="folder-title">Digital Animation</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 19 -->
+                    <div class="folder-card" onclick="window.location.href='Integrity and Anti-Corruption.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 19</div>
+                                <div class="folder-icon">⚖️</div>
+                                <div class="folder-title">Integrity and Anti-Corruption</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 20 -->
+                    <div class="folder-card" onclick="window.location.href='Interface Design & Application.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 20</div>
+                                <div class="folder-icon">📱</div>
+                                <div class="folder-title">Interface Design and Application</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+
+                    <!-- Folder 21 -->
+                    <div class="folder-card" onclick="window.location.href='Multimedia Development.html'">
+                        <div class="folder-inner">
+                            <div>
+                                <div class="folder-number">Folder 21</div>
+                                <div class="folder-icon">🎮</div>
+                                <div class="folder-title">Multimedia Development</div>
+                            </div>
+                            <div class="folder-arrow">→</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ <script>
+        // Drag to scroll functionality
+        const scrollContainer = document.getElementById('foldersScroll');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            scrollContainer.style.cursor = 'grabbing';
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+        });
+
+        scrollContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
+        });
+
+        scrollContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            scrollContainer.style.cursor = 'grab';
+        });
+
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 2;
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        });
+
+        // Folder click function
+        function openFolder(folderNumber, folderName) {
+            alert(`Opening Folder ${folderNumber}: ${folderName}`);
+            // You can replace this with actual navigation or content display logic
+        }
+    </script>
+</body>
+</html>

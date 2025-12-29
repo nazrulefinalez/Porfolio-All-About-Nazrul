@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenangan Terpahat di Hati 2025 - Nezofication Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5e6ff 0%, #e6f3ff 25%, #e6fff9 50%, #fff0f5 75%, #ffe6f0 100%);
+            min-height: 100vh;
+            color: #5a5a5a;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 2px solid rgba(197, 179, 255, 0.3);
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 20px;
+            animation: glassFloat 4s ease-in-out infinite;
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .nav-logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%,
+                rgba(255,255,255,0.85),
+                rgba(255,255,255,0.35) 30%,
+                rgba(120,115,245,0.25) 55%,
+                rgba(79,172,254,0.2) 75%,
+                rgba(255,255,255,0.15));
+            border: 1px solid rgba(255,255,255,0.45);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset -6px -6px 12px rgba(255,255,255,0.35),
+                inset 6px 6px 12px rgba(0,0,0,0.12),
+                0 10px 20px rgba(120,115,245,0.25);
+        }
+
+        .nav-logo-inner img {
+            width: 45px;
+            height: 23px;
+            z-index: 2;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+        }
+
+        @keyframes glassFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            border-radius: 50px;
+            color: #5a5a5a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 120px 40px 40px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(197, 179, 255, 0.3);
+            text-align: center;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 25%, #b3d9ff 50%, #b3ffd9 75%, #ffcce6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .header p {
+            color: #6a6a6a;
+            font-size: 1.2rem;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        /* Flip Card */
+        .flip-card {
+            perspective: 1000px;
+            height: 400px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(120, 115, 245, 0.3);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front img,
+        .flip-card-front video,
+        .flip-card-back img,
+        .flip-card-back video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .flip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            box-shadow: 0 20px 60px rgba(120, 115, 245, 0.5);
+        }
+
+        .flip-icon {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 10;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .flip-card:hover .flip-icon {
+            transform: rotate(180deg) scale(1.1);
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Modal for Full Size */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content-wrapper {
+            max-width: 95%;
+            max-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 100%;
+            max-height: 95vh;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: zoomIn 0.3s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10000;
+            background: rgba(255, 255, 255, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 30px rgba(255, 179, 217, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 179, 217, 0.6);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { 
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 100px 20px 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .flip-card {
+                height: 350px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+
+            .modal-close {
+                top: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 2rem;
+            }
+
+            .modal-hint {
+                font-size: 0.8rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+     <!-- Navigation (Fixed, appears after scrolling) -->
+    <div class="nav-container" id="navbar">
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='homepage.html#hasil';">
+    TENTANG
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='pencapaian.html';">PENCAPAIAN</button>
+        
+        <a href="homepage.html" class="nav-logo">
+    <div class="nav-logo-inner">
+        <img src="logoremake.png" alt="Logo">
+    </div>
+</a>
+
+        
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='portfolioo.html';">
+    KARYA KREATIF
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='contact.html';">HUBUNGI</button>
+									
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>💝 Kenangan Terpahat di Hati 2025</h1>
+            <p>Klik untuk flip | Dwiklik untuk full size ✨</p>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+
+    <!-- Modal for Full Size View -->
+    <div id="mediaModal" class="modal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-content-wrapper">
+            <img id="modalImage" class="modal-content" style="display:none;">
+            <video id="modalVideo" class="modal-content" controls style="display:none;"></video>
+        </div>
+        <div class="modal-hint">Tekan ESC atau klik X untuk tutup</div>
+    </div>
+
+    <script>
+        // Array of all images and videos (SEMUA 97 files)
+        const allMedia = [
+            { type: 'image', src: 'image/galeri/Snapchat-1191008448.jpg' },
+            { type: 'image', src: 'image/galeri/Snapchat-1331644016.jpg' },
+            { type: 'image', src: 'image/galeri/Snapchat-1858462302.jpg' },
+            { type: 'video', src: 'image/galeri/VID-20251218-WA0029.mp4' },
+            { type: 'video', src: 'image/galeri/VID20251019162259.mp4' },
+            { type: 'video', src: 'image/galeri/VID20251124185706.mp4' },
+            { type: 'image', src: 'image/galeri/20241118_061107_483.jpg' },
+            { type: 'image', src: 'image/galeri/20250603_025239_040.jpg' },
+            { type: 'image', src: 'image/galeri/20250828_175239_415.jpg' },
+            { type: 'image', src: 'image/galeri/20250910_072606_638.jpg' },
+            { type: 'image', src: 'image/galeri/20250912_203147_637.jpg' },
+            { type: 'image', src: 'image/galeri/20250925_110805_793.jpg' },
+            { type: 'image', src: 'image/galeri/20251124_100457_919.jpg' },
+            { type: 'image', src: 'image/galeri/20251124_134029_683.jpg' },
+            { type: 'image', src: 'image/galeri/20251124_134211_589.jpg' },
+            { type: 'image', src: 'image/galeri/20251203_181848_604.jpg' },
+            { type: 'image', src: 'image/galeri/20251203_222201_659.jpg' },
+            { type: 'image', src: 'image/galeri/20251205_080549_173.jpg' },
+            { type: 'image', src: 'image/galeri/20250226030245323.jpg' },
+            { type: 'image', src: 'image/galeri/FB_IMG_1764835822988.jpg' },
+            { type: 'image', src: 'image/galeri/FB_IMG_1764835921256.jpg' },
+            { type: 'image', src: 'image/galeri/IMG_20250726_221922_613.jpg' },
+            { type: 'image', src: 'image/galeri/IMG_20251027_012211.jpg' },
+            { type: 'image', src: 'image/galeri/IMG_20251203_183310_186.jpg' },
+            { type: 'image', src: 'image/galeri/IMG_20251203_183310_300.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20231029-WA0021.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20240208-WA0022.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20240228-WA0043.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20240519-WA0000.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20240527-WA0051.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20240527-WA0066.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20240529-WA0001.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20240529-WA0039.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20241028-WA0104.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250628-WA0008.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250628-WA0011.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250724-WA0008.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250724-WA0077.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250814-WA0056.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250818-WA0002.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250818-WA0034.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250818-WA0048.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250818-WA0081.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250818-WA0089.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250825-WA0025.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250825-WA0032.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250825-WA0039.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250827-WA0101.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250827-WA0121.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250827-WA0248.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250827-WA0250.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250827-WA0253.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250828-WA0020.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250909-WA0028.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20250924-WA0059.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251025-WA0157.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251026-WA0026.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251026-WA0027.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251028-WA0058.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251031-WA0027.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251108-WA0011.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251108-WA0013.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251129-WA0032.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251201-WA0004.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0066.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0095.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0102.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0113.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0117.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0213.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0214.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0265.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0269.jpg' },
+            { type: 'image', src: 'image/galeri/IMG-20251205-WA0302.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20241217230124.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20250130113022_01.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20250130133547.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20250131194649.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20250402210042.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20250426132921.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20250716163321.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20250822093036.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251019111745.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251019162255.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251019173012.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251025053424_01.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251026212318.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251124113207.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251126133836.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251126133908.jpg' },
+            { type: 'image', src: 'image/galeri/IMG20251207181700.jpg' },
+            { type: 'image', src: 'image/galeri/raya_page-0001.jpg' },
+            { type: 'image', src: 'image/galeri/Snapchat-111284072.jpg' },
+            { type: 'image', src: 'image/galeri/Snapchat-359843293.jpg' },
+            { type: 'image', src: 'image/galeri/Snapchat-700529107.jpg' }
+        ];
+
+        // Shuffle array
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Create pairs of media (front and back)
+        const shuffledMedia = shuffle([...allMedia]);
+        const mediaPairs = [];
+        for (let i = 0; i < shuffledMedia.length - 1; i += 2) {
+            mediaPairs.push({
+                front: shuffledMedia[i],
+                back: shuffledMedia[i + 1]
+            });
+        }
+
+        // Generate gallery
+        const galleryGrid = document.getElementById('galleryGrid');
+
+        mediaPairs.forEach((pair, index) => {
+            const card = document.createElement('div');
+            card.className = 'flip-card';
+            card.style.animationDelay = `${index * 0.05}s`;
+
+            const frontElement = pair.front.type === 'video' 
+                ? `<video src="${pair.front.src}" muted loop autoplay></video>`
+                : `<img src="${pair.front.src}" alt="Kenangan">`;
+
+            const backElement = pair.back.type === 'video' 
+                ? `<video src="${pair.back.src}" muted loop autoplay></video>`
+                : `<img src="${pair.back.src}" alt="Kenangan">`;
+
+            card.innerHTML = `
+                <div class="flip-card-inner">
+                    <div class="flip-card-front" data-type="${pair.front.type}" data-src="${pair.front.src}">
+                        ${frontElement}
+                        <div class="flip-icon">🔄</div>
+                    </div>
+                    <div class="flip-card-back" data-type="${pair.back.type}" data-src="${pair.back.src}">
+                        ${backElement}
+                    </div>
+                </div>
+            `;
+
+            // Single click to flip
+            let clickCount = 0;
+            let clickTimer = null;
+
+            card.addEventListener('click', function(e) {
+                clickCount++;
+                
+                if (clickCount === 1) {
+                    clickTimer = setTimeout(() => {
+                        // Single click - flip card
+                        this.classList.toggle('flipped');
+                        clickCount = 0;
+                    }, 250);
+                } else if (clickCount === 2) {
+                    // Double click - open modal
+                    clearTimeout(clickTimer);
+                    clickCount = 0;
+                    
+                    const isFlipped = this.classList.contains('flipped');
+                    const activeElement = isFlipped ? 
+                        this.querySelector('.flip-card-back') : 
+                        this.querySelector('.flip-card-front');
+                    
+                    const mediaType = activeElement.dataset.type;
+                    const mediaSrc = activeElement.dataset.src;
+                    
+                    openModal(mediaType, mediaSrc);
+                }
+            });
+
+            galleryGrid.appendChild(card);
+        });
+
+        // Modal functions
+        function openModal(type, src) {
+            const modal = document.getElementById('mediaModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            if (type === 'video') {
+                modalImage.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.src = src;
+                modalVideo.play();
+            } else {
+                modalVideo.style.display = 'none';
+                modalImage.style.display = 'block';
+                modalImage.src = src;
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('mediaModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modal.classList.remove('active');
+            modalVideo.pause();
+            modalVideo.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on background click
+        document.getElementById('mediaModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

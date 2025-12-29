@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Storytelling - Nezofication Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5e6ff 0%, #e6f3ff 25%, #e6fff9 50%, #fff0f5 75%, #ffe6f0 100%);
+            min-height: 100vh;
+            color: #5a5a5a;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 2px solid rgba(197, 179, 255, 0.3);
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 20px;
+            animation: glassFloat 4s ease-in-out infinite;
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .nav-logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%,
+                rgba(255,255,255,0.85),
+                rgba(255,255,255,0.35) 30%,
+                rgba(120,115,245,0.25) 55%,
+                rgba(79,172,254,0.2) 75%,
+                rgba(255,255,255,0.15));
+            border: 1px solid rgba(255,255,255,0.45);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset -6px -6px 12px rgba(255,255,255,0.35),
+                inset 6px 6px 12px rgba(0,0,0,0.12),
+                0 10px 20px rgba(120,115,245,0.25);
+            animation: glassMorph 6s ease-in-out infinite;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.6),
+                rgba(120,115,245,0.4),
+                transparent 70%);
+            filter: blur(12px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .nav-logo-inner::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: linear-gradient(120deg,
+                transparent 30%,
+                rgba(255,255,255,0.35) 45%,
+                transparent 60%);
+            animation: glassShine 5s linear infinite;
+        }
+
+        .nav-logo-inner::after {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 15%;
+            width: 30%;
+            height: 30%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.9),
+                transparent 70%);
+            border-radius: 50%;
+            filter: blur(6px);
+        }
+
+        .nav-logo-inner img {
+            width: 45px;
+            height: 23px;
+            z-index: 2;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+        }
+
+        @keyframes glassFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 50%; }
+            50% { border-radius: 47% 53% 52% 48% / 50% 48% 52% 50%; }
+        }
+
+        @keyframes glassShine {
+            0% { transform: translateX(-40%) rotate(0deg); }
+            100% { transform: translateX(40%) rotate(0deg); }
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            border-radius: 50px;
+            color: #5a5a5a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 120px 40px 40px;
+        }
+
+        /* Header Section */
+        .header {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(197, 179, 255, 0.3);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            color: #5a5a5a;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 25%, #b3d9ff 50%, #b3ffd9 75%, #ffcce6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .header p {
+            color: #6a6a6a;
+            font-size: 1.2rem;
+        }
+
+        /* Content Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(197, 179, 255, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 50%, #b3d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(197, 179, 255, 0.3);
+        }
+
+        /* Video Preview Section */
+        .video-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 35px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                inset 0 0 40px rgba(255, 255, 255, 0.5),
+                0 10px 40px rgba(120, 115, 245, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 35px;
+            background: linear-gradient(45deg, 
+                #ff6ec4, #7873f5, #4facfe, #00f2fe);
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .video-card:hover::before {
+            opacity: 0.7;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                inset 0 0 60px rgba(255, 255, 255, 0.7),
+                0 20px 60px rgba(120, 115, 245, 0.5);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 30px 30px 0 0;
+            background: #000;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .video-info h3 {
+            color: #5a5a5a;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+        }
+
+        .video-info p {
+            color: #6a6a6a;
+            font-size: 1rem;
+        }
+
+        .video-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 12px;
+            box-shadow: 0 3px 15px rgba(120, 115, 245, 0.3);
+        }
+
+        /* PDF Viewer Grid */
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .pdf-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 35px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                inset 0 0 40px rgba(255, 255, 255, 0.5),
+                0 10px 40px rgba(120, 115, 245, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .pdf-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 35px;
+            background: linear-gradient(45deg, 
+                #43e97b, #38f9d7, #4facfe, #00f2fe);
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .pdf-card:hover::before {
+            opacity: 0.7;
+        }
+
+        .pdf-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                inset 0 0 60px rgba(255, 255, 255, 0.7),
+                0 20px 60px rgba(120, 115, 245, 0.5);
+        }
+
+        .pdf-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .pdf-wrapper {
+            position: relative;
+            padding-bottom: 141.4%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 30px 30px 0 0;
+            background: #f5f5f5;
+        }
+
+        .pdf-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pdf-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .pdf-info h3 {
+            color: #5a5a5a;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .pdf-info p {
+            color: #6a6a6a;
+            font-size: 0.95rem;
+        }
+
+        .pdf-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 10px;
+            box-shadow: 0 3px 15px rgba(67, 233, 123, 0.3);
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.6);
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 30px rgba(255, 179, 217, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 179, 217, 0.6);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 100px 20px 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .pdf-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Fixed, appears after scrolling) -->
+    <div class="nav-container" id="navbar">
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='homepage.html#hasil';">
+    TENTANG
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='pencapaian.html';">PENCAPAIAN</button>
+        
+        <a href="homepage.html" class="nav-logo">
+    <div class="nav-logo-inner">
+        <img src="logoremake.png" alt="Logo">
+    </div>
+</a>
+
+        
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='portfolioo.html';">
+    KARYA KREATIF
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='contact.html';">HUBUNGI</button>
+									
+    </div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="portfolioo.html" class="back-btn">
+                ← KEMBALI
+            </a>
+            <h1>📖 Digital Storytelling</h1>
+            <p>Projek Naratif Kreatif dan Penceritaan Visual</p>
+        </div>
+
+        <!-- Video Preview Section -->
+        <div class="section">
+            <h2 class="section-title">🎬 Skrip and Video</h2>
+            <div class="video-card">
+                <div class="video-wrapper">
+                     <video 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline
+                    style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;"
+                    onloadedmetadata="this.currentTime = 32">
+                    <source src="video/Task-Upin Ipin Keris Siamang Tunggal.mp4" type="video/mp4">
+                    Browser anda tidak support video.
+                </video>
+                </div>
+               <div class="video-info"
+     onclick="window.open('https://drive.google.com/file/d/1V9dFQivo96H9Godu2Nv46CsinJW-5UST/view?usp=sharing', '_blank')"
+     style="cursor: pointer;">
+
+    <h3>Upin Ipin: Keris Siamang Tunggal</h3>
+    <p>Analisis Projek Penceritaan dan Tafsiran Kreatif</p>
+    <span class="video-badge">Lihat</span>
+</div>
+            </div>
+        </div>
+
+        <!-- PDF Documents Section -->
+        <div class="section">
+            <h2 class="section-title">📄 Project Documentation</h2>
+            <div class="pdf-grid">
+                <!-- DCM2014 STORYTELLING PDF -->
+                <div class="pdf-card">
+                    <a href="https://drive.google.com/file/d/1sMSWQ5ylfRR9J7NdH3HVZy22y-JJXiWh/view?usp=sharing" target="_blank" class="pdf-link">
+                        <div class="pdf-wrapper">
+                            <img src="image/portfolio/DCM2014 STORYTELLING_page-0001.jpg" alt="DCM2014 Storytelling Preview">
+                        </div>
+                        <div class="pdf-info">
+                            <h3>Penceritaan: Kerongsang Itu Milik Dia</h3>
+                            <span class="pdf-badge">Lihat</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Skrip Kerongsang Itu Milik Dia PDF -->
+                <div class="pdf-card">
+                    <a href="https://drive.google.com/file/d/1Xj00YkdQ3VRU2JnSPi92r1CeoA6tePMO/view?usp=sharing" target="_blank" class="pdf-link">
+                        <div class="pdf-wrapper">
+                            <img src="image/portfolio/Skrip Kerongsang Itu Milik Dia_page-0001.jpg" alt="Skrip Kerongsang Itu Milik Dia Preview">
+                        </div>
+                        <div class="pdf-info">
+                            <h3>Skrip: Kerongsang Itu Milik Dia</h3>
+                            <span class="pdf-badge">Lihat</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Storyboard Kerongsang Itu Milik Dia PDF -->
+                <div class="pdf-card">
+                    <a href="https://drive.google.com/file/d/1Nz4GMuuX96gztVmjH1J-OY_NPezFY7og/view?usp=sharing" target="_blank" class="pdf-link">
+                        <div class="pdf-wrapper">
+                            <img src="image/portfolio/Storyboard Kerongsang Itu Milik Dia_page-0001.jpg" alt="Storyboard Kerongsang Itu Milik Dia Preview">
+                        </div>
+                        <div class="pdf-info">
+                            <h3>Papan Cerita: Kerongsang Itu Milik Dia</h3>
+                            <span class="pdf-badge">Lihat</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

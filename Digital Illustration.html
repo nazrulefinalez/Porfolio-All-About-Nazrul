@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Illustration - Nezofication Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5e6ff 0%, #e6f3ff 25%, #e6fff9 50%, #fff0f5 75%, #ffe6f0 100%);
+            min-height: 100vh;
+            color: #5a5a5a;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 2px solid rgba(197, 179, 255, 0.3);
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 20px;
+            animation: glassFloat 4s ease-in-out infinite;
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .nav-logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%,
+                rgba(255,255,255,0.85),
+                rgba(255,255,255,0.35) 30%,
+                rgba(120,115,245,0.25) 55%,
+                rgba(79,172,254,0.2) 75%,
+                rgba(255,255,255,0.15));
+            border: 1px solid rgba(255,255,255,0.45);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset -6px -6px 12px rgba(255,255,255,0.35),
+                inset 6px 6px 12px rgba(0,0,0,0.12),
+                0 10px 20px rgba(120,115,245,0.25);
+            animation: glassMorph 6s ease-in-out infinite;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.6),
+                rgba(120,115,245,0.4),
+                transparent 70%);
+            filter: blur(12px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .nav-logo-inner::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: linear-gradient(120deg,
+                transparent 30%,
+                rgba(255,255,255,0.35) 45%,
+                transparent 60%);
+            animation: glassShine 5s linear infinite;
+        }
+
+        .nav-logo-inner::after {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 15%;
+            width: 30%;
+            height: 30%;
+            background: radial-gradient(circle,
+                rgba(255,255,255,0.9),
+                transparent 70%);
+            border-radius: 50%;
+            filter: blur(6px);
+        }
+
+        .nav-logo-inner img {
+            width: 45px;
+            height: 23px;
+            z-index: 2;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+        }
+
+        @keyframes glassFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes glassMorph {
+            0%, 100% { border-radius: 50%; }
+            50% { border-radius: 47% 53% 52% 48% / 50% 48% 52% 50%; }
+        }
+
+        @keyframes glassShine {
+            0% { transform: translateX(-40%) rotate(0deg); }
+            100% { transform: translateX(40%) rotate(0deg); }
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            border-radius: 50px;
+            color: #5a5a5a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 120px 40px 40px;
+        }
+
+        /* Header Section */
+        .header {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(197, 179, 255, 0.3);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #c5b3ff 0%, #b3d9ff 100%);
+            color: #5a5a5a;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(197, 179, 255, 0.5);
+            box-shadow: 0 0 15px rgba(197, 179, 255, 0.4);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 30px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #b3d9ff 0%, #c5b3ff 100%);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 25%, #b3d9ff 50%, #b3ffd9 75%, #ffcce6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .header p {
+            color: #6a6a6a;
+            font-size: 1.2rem;
+        }
+
+        /* Content Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(197, 179, 255, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffb3d9 0%, #c5b3ff 50%, #b3d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(197, 179, 255, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: #7873f5;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* Image Gallery Grid */
+        .gallery-grid {
+            display: grid;
+
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .gallery-grid-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 35px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.7) 100%);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            border-radius: 35px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 
+                inset 0 0 40px rgba(255, 255, 255, 0.5),
+                0 10px 40px rgba(120, 115, 245, 0.2);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 35px;
+            background: linear-gradient(45deg, 
+                #ff6ec4, #7873f5, #4facfe, #00f2fe, 
+                #43e97b, #38f9d7);
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.7;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                inset 0 0 60px rgba(255, 255, 255, 0.7),
+                0 20px 60px rgba(120, 115, 245, 0.5);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            border-radius: 30px 30px 0 0;
+            position: relative;
+            background: rgba(197, 179, 255, 0.1);
+        }
+
+        .gallery-image-large {
+            height: 400px;
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-image img {
+            transform: scale(1.08);
+        }
+
+        .gallery-caption {
+            padding: 20px 25px;
+            text-align: center;
+        }
+
+        .gallery-caption h3 {
+            color: #5a5a5a;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption h3 {
+            color: #7873f5;
+        }
+
+        .gallery-caption p {
+            color: #6a6a6a;
+            font-size: 0.95rem;
+        }
+
+        .art-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 8px;
+            box-shadow: 0 3px 15px rgba(120, 115, 245, 0.3);
+        }
+
+        /* Modal for Image Preview */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 30px;
+            width: 95%;
+            max-width: 1400px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 25px;
+            box-shadow: 
+                0 0 80px rgba(197, 179, 255, 0.5),
+                0 0 40px rgba(255, 110, 196, 0.3),
+                inset 0 0 60px rgba(255, 255, 255, 0.1);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 110, 196, 0.9), rgba(120, 115, 245, 0.9));
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10000;
+            box-shadow: 0 5px 25px rgba(255, 110, 196, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .close-modal:hover {
+            transform: scale(1.15) rotate(90deg);
+            box-shadow: 0 8px 35px rgba(255, 110, 196, 0.7);
+            background: linear-gradient(135deg, rgba(120, 115, 245, 0.9), rgba(255, 110, 196, 0.9));
+        }
+
+        .modal-caption {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 25px;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(197, 179, 255, 0.6);
+            background: linear-gradient(135deg, #ffb3d9, #c5b3ff, #b3d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: translateY(-50%) scale(0.7);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(-50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 30px rgba(255, 179, 217, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 179, 217, 0.6);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 100px 20px 20px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .gallery-grid,
+            .gallery-grid-large {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-image,
+            .gallery-image-large {
+                height: 300px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+
+            .close-modal {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+                right: 20px;
+                top: 15px;
+            }
+
+            .modal-content {
+                padding: 15px;
+            }
+
+            .modal-caption {
+                font-size: 1.2rem;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Fixed, appears after scrolling) -->
+    <div class="nav-container" id="navbar">
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='homepage.html#hasil';">
+    TENTANG
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='pencapaian.html';">PENCAPAIAN</button>
+        
+        <a href="homepage.html" class="nav-logo">
+    <div class="nav-logo-inner">
+        <img src="logoremake.png" alt="Logo">
+    </div>
+</a>
+
+        
+        <button class="nav-btn" style="font-family: Steamed DEMO;"
+    onclick="window.location.href='portfolioo.html';">
+    KARYA KREATIF
+</button>
+
+        <button class="nav-btn" style="font-family: Steamed DEMO;" onclick="window.location.href='contact.html';">HUBUNGI</button>
+									
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="portfolioo.html" class="back-btn">
+                ← KEMBALI
+            </a>
+            <h1>✏️ Digital Illustration</h1>
+            <p>Meneroka Teknik Seni Digital &amp; Ilustrasi Kreatif</p>
+        </div>
+
+        <!-- Comic Project Section -->
+        <div class="section">
+            <h2 class="section-title">📚 Projek Akhir Semester</h2>
+            <p class="section-subtitle">Lakaran Komik - Penceritaan Seni Berurutan</p>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  1.jpg', 'Comic Panel 1')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  1.jpg" alt="Comic 1" onerror="this.src='https://via.placeholder.com/400x350/c5b3ff/ffffff?text=Comic+Panel+1'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 1</h3>
+                        <p>Karakter</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  2.jpg', 'Comic Panel 2')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  2.jpg" alt="Comic 2" onerror="this.src='https://via.placeholder.com/400x350/b3d9ff/ffffff?text=Comic+Panel+2'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 2</h3>
+                        <p>Karakter</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  3.jpg', 'Comic Panel 3')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  3.jpg" alt="Comic 3" onerror="this.src='https://via.placeholder.com/400x350/ffb3d9/ffffff?text=Comic+Panel+3'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 3</h3>
+                        <p>Muka Depan</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  4.jpg', 'Comic Panel 4')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  4.jpg" alt="Comic 4" onerror="this.src='https://via.placeholder.com/400x350/b3ffd9/ffffff?text=Comic+Panel+4'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 4</h3>
+                        <p>Lakaran Lukisan</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  5.jpg', 'Comic Panel 5')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  5.jpg" alt="Comic 5" onerror="this.src='https://via.placeholder.com/400x350/ffd9b3/ffffff?text=Comic+Panel+5'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 5</h3>
+                        <p>Lakaran Lukisan</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  6.jpg', 'Comic Panel 6')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  6.jpg" alt="Comic 6" onerror="this.src='https://via.placeholder.com/400x350/e6b3ff/ffffff?text=Comic+Panel+6'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 6</h3>
+                        <p>Lakaran Lukisan</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  7.jpg', 'Comic Panel 7')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  7.jpg" alt="Comic 7" onerror="this.src='https://via.placeholder.com/400x350/b3ffe6/ffffff?text=Comic+Panel+7'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 7</h3>
+                        <p>Lakaran Lukisan</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  8.jpg', 'Comic Panel 8')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  8.jpg" alt="Comic 8" onerror="this.src='https://via.placeholder.com/400x350/ffb3e6/ffffff?text=Comic+Panel+8'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 8</h3>
+                        <p>Lakaran Lukisan</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/di  9.jpg', 'Comic Panel 9')">
+                    <div class="gallery-image">
+                        <img src="image/portfolio/di  9.jpg" alt="Comic 9" onerror="this.src='https://via.placeholder.com/400x350/d9b3ff/ffffff?text=Comic+Panel+9'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Panel 9</h3>
+                        <p>Lakaran Lukisan</p>
+                        <span class="art-badge">KOMIK</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Art Fundamentals Section -->
+        <div class="section">
+            <h2 class="section-title">🎨 Fundamental dan Teknik Seni</h2>
+            <div class="gallery-grid-large">
+                <div class="gallery-item" onclick="openModal('image/portfolio/form warna.jpg', 'Form Study - Color Analysis')">
+                    <div class="gallery-image gallery-image-large">
+                        <img src="image/portfolio/form warna.jpg" alt="Form Warna" onerror="this.src='https://via.placeholder.com/400x400/c5b3ff/ffffff?text=Form+Study'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Lukisan Form</h3>
+                        <span class="art-badge">Lihat</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/linedrawing_nazrul.jpg', 'Line Drawing - Contour Study')">
+                    <div class="gallery-image gallery-image-large">
+                        <img src="image/portfolio/linedrawing_nazrul.jpg" alt="Line Drawing" onerror="this.src='https://via.placeholder.com/400x400/b3d9ff/ffffff?text=Line+Drawing'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Lukisan "Line"</h3>
+                        <span class="art-badge">Lihat</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/rusa.jpg', 'Geometric Composition - Deer')">
+                    <div class="gallery-image gallery-image-large">
+                        <img src="image/portfolio/rusa.jpg" alt="Geometry Deer" onerror="this.src='https://via.placeholder.com/400x400/ffb3d9/ffffff?text=Geometric+Art'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Lukisan Geometri</h3>
+                        <span class="art-badge">Lihat</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal('image/portfolio/space warna-nazrul.jpg', 'Space & Depth Study')">
+                    <div class="gallery-image gallery-image-large">
+                        <img src="image/portfolio/space warna-nazrul.jpg" alt="Space Study" onerror="this.src='https://via.placeholder.com/400x400/b3ffd9/ffffff?text=Space+Study'">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Lihat Space</h3>
+                        <span class="art-badge">Lihat</span>
+                    </div>
+                </div>
+
+               <div class="gallery-item" onclick="openModal('image/portfolio/texture.jpg', 'Texture Exploration')">
+    <div class="gallery-image gallery-image-large">
+        <img src="image/portfolio/texture.jpg" alt="Texture" onerror="this.src='https://via.placeholder.com/400x400/ffd9b3/ffffff?text=Texture+Study'">
+    </div>
+    <div class="gallery-caption">
+        <h3>Lukisan Tekstur</h3>
+        <span class="art-badge">Lihat</span>
+    </div>
+</div>
+
+			<div class="gallery-item" onclick="openModal('image/portfolio/warna_nazrul.jpg', 'Color Theory Application')">
+				<div class="gallery-image gallery-image-large">
+					<img src="image/portfolio/warna_nazrul.jpg" alt="Color Drawing" onerror="this.src='https://via.placeholder.com/400x400/e6b3ff/ffffff?text=Color+Study'">
+				</div>
+				<div class="gallery-caption">
+					<h3>Lukisan Warna</h3>
+					<span class="art-badge">Lihat</span>
+			 </div>
+                </div>
+            </div>
+        </div>
+				 <!-- Modal for Image Preview -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Full size preview">
+        </div>
+    </div>
+	</div>
+
+    <script>
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
+				
+			
